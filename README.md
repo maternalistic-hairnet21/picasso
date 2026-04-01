@@ -56,7 +56,7 @@ Upload `skills/picasso/SKILL.md` as a Custom Skill in Claude.ai settings. Upload
 
 | | Skill | Agent |
 |---|---|---|
-| **What it is** | Static knowledge base (13 reference files) | Autonomous design engineer |
+| **What it is** | Static knowledge base (20 reference files) | Autonomous design engineer |
 | **How it works** | Loaded into context when designing | Runs as a sub-process with its own tools |
 | **When it runs** | When you ask for design help | Proactively after any frontend code change |
 | **Can audit code** | Only when you ask | Automatically |
@@ -71,22 +71,32 @@ Upload `skills/picasso/SKILL.md` as a Custom Skill in Claude.ai settings. Upload
 skills/picasso/
   SKILL.md                          # Main skill file (knowledge base)
   references/
-    typography.md                   # Type systems, font pairing, scales, OpenType
-    color-and-contrast.md           # OKLCH, tinted neutrals, dark mode, a11y
+    anti-patterns.md                # AI slop fingerprint + what NOT to do
+    typography.md                   # Font pairing, type scales, variable fonts, 12 curated pairings
+    color-and-contrast.md           # OKLCH, 10 curated palettes, P3 wide gamut, dark mode
     spatial-design.md               # Spacing scales, grids, visual hierarchy
     motion-and-animation.md         # Easing, staggering, text morphing, reduced motion
     interaction-design.md           # Forms, focus, loading, empty states, errors
-    responsive-design.md            # Mobile-first, fluid, container queries, dvh/svh
+    responsive-design.md            # Mobile-first, dvh/svh, container queries, print
     sensory-design.md               # UI sounds, haptic feedback, multi-sensory
     react-patterns.md               # React 19, Tailwind v4, Server Actions, dark mode
-    anti-patterns.md                # What NOT to do (the most important file)
+    accessibility-wcag.md           # Full ARIA patterns, WCAG 2.2, SPA focus management
+    modern-css-performance.md       # :has(), scroll animations, view transitions, @layer
+    performance-optimization.md     # Core Web Vitals, 45 React/Next.js perf patterns
+    ux-writing.md                   # Button labels, error templates, microcopy, banned words
+    ux-psychology.md                # Gestalt, cognitive laws, scanning patterns
+    conversion-design.md            # Landing pages, CTAs, pricing, onboarding
+    data-visualization.md           # Charts, dashboards, data palettes, Tufte principles
+    style-presets.md                # 22 curated visual presets with colors + fonts
     design-system.md                # DESIGN.md generation, theming, tokens (OKLCH)
     generative-art.md               # p5.js, SVG, Canvas 2D, noise, seeded randomness
     component-patterns.md           # Standard naming, taxonomy, state matrix
-    accessibility.md                # ARIA, keyboard nav, screen readers, WCAG 2.2
 
 agents/
   picasso.md                        # Autonomous design auditor agent
+
+templates/
+  picasso-config.md                 # .picasso.md project config template
 ```
 
 ## Agent Commands
@@ -107,7 +117,13 @@ The Picasso agent responds to these commands:
 | `/theme` | Generate or apply a theme |
 | `/stitch` | Generate a complete DESIGN.md from the current codebase |
 | `/harden` | Add error handling, loading states, empty states |
-| `/a11y` | Accessibility-only audit (axe-core, ARIA, contrast, keyboard) |
+| `/a11y` | Accessibility audit: axe-core + pa11y + Lighthouse |
+| `/perf` | Lighthouse performance audit with Core Web Vitals thresholds |
+| `/visual-diff` | Screenshot desktop + mobile in light/dark, analyze visually |
+| `/consistency` | Multi-page consistency check across all routes |
+| `/lint-design` | Find hardcoded colors, spacing, fonts, z-index chaos |
+| `/install-hooks` | Generate git pre-commit hook for design checks |
+| `/ci-setup` | Generate GitHub Actions workflow for PR design review |
 
 ## Agent Audit Checklist
 
