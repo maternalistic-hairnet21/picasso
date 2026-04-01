@@ -8,7 +8,9 @@
 5. OpenType Features
 6. Pixel and Display Fonts
 7. Web Font Loading
-8. Common Mistakes
+8. Curated Font Pairings
+9. Variable Fonts
+10. Common Mistakes
 
 ---
 
@@ -157,7 +159,209 @@ Self-host when possible. CDN fonts introduce a third-party dependency and a DNS 
 
 ---
 
-## 8. Common Mistakes
+## 8. Curated Font Pairings
+
+Twelve tested pairings using 2025-2026 trending typefaces. Each listing includes the source, ideal use case, and the CSS declaration with proper fallbacks.
+
+### 8.1 Clash Display + Satoshi
+- **Source**: Fontshare (free)
+- **Use case**: SaaS landing pages, startup marketing sites
+- **CSS**:
+```css
+--font-display: 'Clash Display', 'Arial Black', sans-serif;
+--font-body: 'Satoshi', 'Helvetica Neue', Helvetica, sans-serif;
+```
+
+### 8.2 Cabinet Grotesk + General Sans
+- **Source**: Fontshare (free)
+- **Use case**: Creative agencies, portfolio sites, design tools
+- **CSS**:
+```css
+--font-display: 'Cabinet Grotesk', 'Trebuchet MS', sans-serif;
+--font-body: 'General Sans', 'Helvetica Neue', Helvetica, sans-serif;
+```
+
+### 8.3 Cal Sans + Geist Sans
+- **Source**: Cal Sans from cal.com (free, OFL). Geist via `npm i geist`.
+- **Use case**: Developer tools, open-source project sites, technical SaaS
+- **CSS**:
+```css
+--font-display: 'Cal Sans', 'Arial Black', sans-serif;
+--font-body: 'Geist', system-ui, -apple-system, sans-serif;
+```
+
+### 8.4 Instrument Serif + Instrument Sans
+- **Source**: Google Fonts (free)
+- **Use case**: Editorial, content platforms, long-form reading, magazines
+- **CSS**:
+```css
+--font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+--font-body: 'Instrument Sans', 'Helvetica Neue', Helvetica, sans-serif;
+```
+
+### 8.5 Clash Display + DM Sans
+- **Source**: Clash Display from Fontshare. DM Sans from Google Fonts.
+- **Use case**: Fintech dashboards, professional SaaS, enterprise tools
+- **CSS**:
+```css
+--font-display: 'Clash Display', 'Arial Black', sans-serif;
+--font-body: 'DM Sans', 'Helvetica Neue', Helvetica, sans-serif;
+```
+
+### 8.6 Plus Jakarta Sans + Plus Jakarta Sans
+- **Source**: Google Fonts (free)
+- **Use case**: Clean SaaS apps, admin panels, health and wellness platforms. Use weight contrast (700+ for headings, 400-500 for body) instead of two families.
+- **CSS**:
+```css
+--font-display: 'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, sans-serif;
+--font-body: 'Plus Jakarta Sans', 'Helvetica Neue', Helvetica, sans-serif;
+```
+
+### 8.7 Satoshi + Outfit
+- **Source**: Satoshi from Fontshare. Outfit from Google Fonts.
+- **Use case**: Consumer apps, onboarding flows, friendly dashboards
+- **CSS**:
+```css
+--font-display: 'Satoshi', 'Helvetica Neue', Helvetica, sans-serif;
+--font-body: 'Outfit', 'Segoe UI', sans-serif;
+```
+
+### 8.8 Cabinet Grotesk + DM Sans
+- **Source**: Cabinet Grotesk from Fontshare. DM Sans from Google Fonts.
+- **Use case**: E-commerce, product marketing, brand-heavy pages
+- **CSS**:
+```css
+--font-display: 'Cabinet Grotesk', 'Trebuchet MS', sans-serif;
+--font-body: 'DM Sans', 'Helvetica Neue', Helvetica, sans-serif;
+```
+
+### 8.9 Instrument Serif + General Sans
+- **Source**: Instrument Serif from Google Fonts. General Sans from Fontshare.
+- **Use case**: Luxury, editorial commerce, lifestyle brands
+- **CSS**:
+```css
+--font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+--font-body: 'General Sans', 'Helvetica Neue', Helvetica, sans-serif;
+```
+
+### 8.10 Geist Sans + Geist Mono
+- **Source**: `npm i geist` (free, Vercel)
+- **Use case**: Developer platforms, CLI tools, documentation sites, code-heavy interfaces
+- **CSS**:
+```css
+--font-body: 'Geist', system-ui, -apple-system, sans-serif;
+--font-mono: 'Geist Mono', 'Cascadia Code', 'Fira Code', monospace;
+```
+
+### 8.11 Clash Display + JetBrains Mono (accent)
+- **Source**: Clash Display from Fontshare. JetBrains Mono from Google Fonts or jetbrains.com.
+- **Use case**: Technical marketing, API product pages, developer-facing landing pages
+- **CSS**:
+```css
+--font-display: 'Clash Display', 'Arial Black', sans-serif;
+--font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+--font-body: 'Satoshi', 'Helvetica Neue', Helvetica, sans-serif;
+```
+
+### 8.12 General Sans + Commit Mono
+- **Source**: General Sans from Fontshare. Commit Mono from commitmono.com (free).
+- **Use case**: Data-heavy dashboards, analytics platforms, dev tools with mixed prose and code
+- **CSS**:
+```css
+--font-body: 'General Sans', 'Helvetica Neue', Helvetica, sans-serif;
+--font-mono: 'Commit Mono', 'Berkeley Mono', 'SF Mono', monospace;
+```
+
+### Monospace Quick Reference
+| Font | Source | Ligatures | Notes |
+|---|---|---|---|
+| Geist Mono | npm i geist | No | Clean, pairs with Geist Sans |
+| JetBrains Mono | Google Fonts / jetbrains.com | Yes | Best ligature set, great for code blocks |
+| Berkeley Mono | berkeleygraphics.com (paid) | No | Premium feel, excellent for terminals and data |
+| Commit Mono | commitmono.com | No | Neutral, smart kerning, variable font |
+
+---
+
+## 9. Variable Fonts
+
+### What They Are
+Variable fonts pack an entire family (all weights, widths, italics, optical sizes) into a single file. Instead of loading separate files for Regular, Medium, Bold, and Black, you load one `.woff2` that contains a continuous range of values along design axes.
+
+### Core Axes
+| Axis | Tag | Range (typical) | Description |
+|---|---|---|---|
+| Weight | wght | 100-900 | Thin to Black |
+| Width | wdth | 75-125 | Condensed to Expanded |
+| Italic | ital | 0-1 | Upright to Italic |
+| Slant | slnt | -12 to 0 | Oblique angle |
+| Optical Size | opsz | 8-144 | Adjust for text size |
+
+### Basic Usage
+```css
+@font-face {
+  font-family: 'Satoshi';
+  src: url('/fonts/Satoshi-Variable.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+h1 { font-weight: 750; }       /* fractional weights */
+body { font-weight: 420; }     /* precise control */
+caption { font-weight: 350; }  /* lighter than regular */
+```
+
+### Weight Animation on Hover
+```css
+.nav-link {
+  font-weight: 400;
+  font-variation-settings: 'wght' 400;
+  transition: font-variation-settings 0.2s ease;
+}
+.nav-link:hover {
+  font-variation-settings: 'wght' 650;
+}
+```
+
+Use `font-variation-settings` for animation because `font-weight` transitions are not smooth in all browsers. The `font-variation-settings` property animates along the continuous axis.
+
+### Width Animation
+```css
+.expandable-label {
+  font-variation-settings: 'wdth' 90;
+  transition: font-variation-settings 0.3s ease;
+}
+.expandable-label:hover {
+  font-variation-settings: 'wdth' 110;
+}
+```
+
+### Custom Axes
+Some variable fonts include custom axes (always uppercase tags). Example with Recursive:
+```css
+.code-block {
+  font-family: 'Recursive', monospace;
+  font-variation-settings: 'MONO' 1, 'CASL' 0, 'wght' 400;
+}
+.code-comment {
+  font-variation-settings: 'MONO' 1, 'CASL' 1, 'wght' 300, 'slnt' -12;
+}
+```
+
+### Recommended Variable Fonts
+| Font | Axes | Source | Notes |
+|---|---|---|---|
+| Satoshi Variable | wght (300-900) | Fontshare | Best all-around variable sans for UI |
+| General Sans Variable | wght (200-700) | Fontshare | Wide weight range, clean geometry |
+| Plus Jakarta Sans | wght (200-800) | Google Fonts | Full variable support, friendly geometry |
+| Instrument Sans | wght (400-700) | Google Fonts | Pairs with Instrument Serif variable |
+| Commit Mono | wght (400-700) | commitmono.com | Monospace with smart kerning axis |
+
+### Performance Benefit
+A single variable font file (typically 50-120KB for Latin subset) replaces 4-8 static files (each 15-40KB). This reduces HTTP requests and total download size, especially when using more than 3 weights.
+
+---
+
+## 10. Common Mistakes
 
 - Using more than 3 font families on a page
 - Setting body text below 16px on desktop or 14px on mobile

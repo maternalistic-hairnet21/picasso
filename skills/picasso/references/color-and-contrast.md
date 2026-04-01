@@ -7,7 +7,9 @@
 4. Dark Mode
 5. Accessibility
 6. CSS Variables Pattern
-7. Common Mistakes
+7. Curated Color Palettes
+8. Wide Gamut Colors (P3)
+9. Common Mistakes
 
 ---
 
@@ -163,7 +165,254 @@ For component-level overrides:
 
 ---
 
-## 7. Common Mistakes
+## 7. Curated Color Palettes
+
+Ten tested OKLCH palettes ready to drop into any project. Each includes a complete token set. Copy the one that fits your domain, then adjust chroma and hue to taste.
+
+### 7.1 Warm Terracotta
+**Vibe**: Earthy, grounded, artisanal. Good for lifestyle brands, wellness, real estate, organic products.
+```css
+:root {
+  --surface-0: oklch(0.98 0.008 55);
+  --surface-1: oklch(0.95 0.012 55);
+  --text-primary: oklch(0.18 0.025 55);
+  --text-secondary: oklch(0.42 0.02 55);
+  --accent: oklch(0.58 0.16 45);
+  --accent-hover: oklch(0.52 0.18 45);
+  --accent-subtle: oklch(0.93 0.04 45);
+  --border: oklch(0.87 0.015 55);
+  --success: oklch(0.55 0.16 155);
+  --warning: oklch(0.68 0.16 75);
+  --error: oklch(0.55 0.20 25);
+}
+```
+
+### 7.2 Forest Green
+**Vibe**: Natural, sustainable, trustworthy. Good for fintech, health, environmental, agriculture.
+```css
+:root {
+  --surface-0: oklch(0.98 0.006 145);
+  --surface-1: oklch(0.96 0.01 145);
+  --text-primary: oklch(0.17 0.03 150);
+  --text-secondary: oklch(0.40 0.02 150);
+  --accent: oklch(0.52 0.14 155);
+  --accent-hover: oklch(0.46 0.16 155);
+  --accent-subtle: oklch(0.93 0.04 155);
+  --border: oklch(0.88 0.012 145);
+  --success: oklch(0.55 0.16 145);
+  --warning: oklch(0.66 0.16 80);
+  --error: oklch(0.55 0.20 25);
+}
+```
+
+### 7.3 Amber Gold
+**Vibe**: Premium, confident, optimistic. Good for finance, luxury SaaS, productivity tools.
+```css
+:root {
+  --surface-0: oklch(0.99 0.005 85);
+  --surface-1: oklch(0.96 0.01 85);
+  --text-primary: oklch(0.16 0.02 85);
+  --text-secondary: oklch(0.40 0.018 85);
+  --accent: oklch(0.68 0.18 75);
+  --accent-hover: oklch(0.62 0.20 75);
+  --accent-subtle: oklch(0.94 0.04 75);
+  --border: oklch(0.88 0.012 85);
+  --success: oklch(0.55 0.16 150);
+  --warning: oklch(0.68 0.18 75);
+  --error: oklch(0.55 0.20 28);
+}
+```
+
+### 7.4 Coral Salmon
+**Vibe**: Warm, energetic, approachable. Good for social apps, creative tools, food and hospitality.
+```css
+:root {
+  --surface-0: oklch(0.98 0.006 30);
+  --surface-1: oklch(0.96 0.01 30);
+  --text-primary: oklch(0.18 0.02 30);
+  --text-secondary: oklch(0.42 0.018 30);
+  --accent: oklch(0.65 0.20 25);
+  --accent-hover: oklch(0.58 0.22 25);
+  --accent-subtle: oklch(0.94 0.04 25);
+  --border: oklch(0.88 0.012 30);
+  --success: oklch(0.55 0.16 150);
+  --warning: oklch(0.66 0.16 75);
+  --error: oklch(0.52 0.22 20);
+}
+```
+
+### 7.5 Deep Teal
+**Vibe**: Calm, medical, authoritative. Good for health tech, enterprise SaaS, data platforms, legal.
+```css
+:root {
+  --surface-0: oklch(0.98 0.005 195);
+  --surface-1: oklch(0.96 0.008 195);
+  --text-primary: oklch(0.16 0.025 200);
+  --text-secondary: oklch(0.40 0.02 200);
+  --accent: oklch(0.52 0.12 195);
+  --accent-hover: oklch(0.46 0.14 195);
+  --accent-subtle: oklch(0.93 0.03 195);
+  --border: oklch(0.88 0.01 195);
+  --success: oklch(0.55 0.14 155);
+  --warning: oklch(0.66 0.16 75);
+  --error: oklch(0.55 0.20 25);
+}
+```
+
+### 7.6 Slate Blue
+**Vibe**: Professional, systematic, dependable. Good for project management, B2B SaaS, documentation.
+```css
+:root {
+  --surface-0: oklch(0.98 0.005 250);
+  --surface-1: oklch(0.96 0.008 250);
+  --text-primary: oklch(0.17 0.02 250);
+  --text-secondary: oklch(0.42 0.018 250);
+  --accent: oklch(0.55 0.14 250);
+  --accent-hover: oklch(0.49 0.16 250);
+  --accent-subtle: oklch(0.93 0.03 250);
+  --border: oklch(0.88 0.01 250);
+  --success: oklch(0.55 0.16 150);
+  --warning: oklch(0.66 0.16 75);
+  --error: oklch(0.55 0.20 25);
+}
+```
+
+### 7.7 Burgundy
+**Vibe**: Sophisticated, editorial, rich. Good for wine/food, publishing, luxury, fashion.
+```css
+:root {
+  --surface-0: oklch(0.98 0.006 10);
+  --surface-1: oklch(0.96 0.01 10);
+  --text-primary: oklch(0.16 0.025 10);
+  --text-secondary: oklch(0.40 0.02 10);
+  --accent: oklch(0.42 0.16 15);
+  --accent-hover: oklch(0.36 0.18 15);
+  --accent-subtle: oklch(0.93 0.04 15);
+  --border: oklch(0.87 0.012 10);
+  --success: oklch(0.55 0.16 150);
+  --warning: oklch(0.66 0.16 75);
+  --error: oklch(0.50 0.20 25);
+}
+```
+
+### 7.8 Sage
+**Vibe**: Soft, organic, restorative. Good for wellness, meditation, journaling, therapy platforms.
+```css
+:root {
+  --surface-0: oklch(0.98 0.006 130);
+  --surface-1: oklch(0.95 0.012 130);
+  --text-primary: oklch(0.20 0.02 130);
+  --text-secondary: oklch(0.42 0.018 130);
+  --accent: oklch(0.58 0.10 130);
+  --accent-hover: oklch(0.52 0.12 130);
+  --accent-subtle: oklch(0.93 0.03 130);
+  --border: oklch(0.88 0.01 130);
+  --success: oklch(0.55 0.14 150);
+  --warning: oklch(0.66 0.15 75);
+  --error: oklch(0.55 0.18 25);
+}
+```
+
+### 7.9 Charcoal with Orange Accent
+**Vibe**: Bold, industrial, high-contrast. Good for dev tools, gaming, analytics, creative coding.
+```css
+:root {
+  --surface-0: oklch(0.97 0.003 60);
+  --surface-1: oklch(0.94 0.005 60);
+  --text-primary: oklch(0.15 0.01 60);
+  --text-secondary: oklch(0.40 0.01 60);
+  --accent: oklch(0.65 0.22 55);
+  --accent-hover: oklch(0.58 0.24 55);
+  --accent-subtle: oklch(0.94 0.04 55);
+  --border: oklch(0.86 0.008 60);
+  --success: oklch(0.55 0.16 150);
+  --warning: oklch(0.66 0.18 70);
+  --error: oklch(0.55 0.22 25);
+}
+```
+
+### 7.10 Monochrome Black and White
+**Vibe**: Stark, typographic, gallery-like. Good for portfolios, photography, editorial, minimal SaaS.
+```css
+:root {
+  --surface-0: oklch(0.99 0.000 0);
+  --surface-1: oklch(0.96 0.000 0);
+  --text-primary: oklch(0.13 0.000 0);
+  --text-secondary: oklch(0.45 0.000 0);
+  --accent: oklch(0.15 0.000 0);
+  --accent-hover: oklch(0.25 0.000 0);
+  --accent-subtle: oklch(0.93 0.000 0);
+  --border: oklch(0.85 0.000 0);
+  --success: oklch(0.50 0.14 150);
+  --warning: oklch(0.62 0.14 75);
+  --error: oklch(0.50 0.18 25);
+}
+```
+
+For the monochrome palette, the accent is near-black. CTAs rely on fill weight (solid black buttons with white text) rather than color. Semantic colors (success, warning, error) break the monochrome intentionally so they remain functional.
+
+---
+
+## 8. Wide Gamut Colors (P3)
+
+### What is Display P3?
+Display P3 is a color space that covers roughly 25% more visible colors than sRGB. Modern Apple devices, most OLED screens, and recent monitors support it. Colors outside the sRGB gamut appear more vivid without being oversaturated.
+
+### CSS Syntax
+```css
+/* Display P3 via color() function */
+--accent: color(display-p3 0.92 0.34 0.15);       /* vivid orange impossible in sRGB */
+--success: color(display-p3 0.18 0.75 0.35);       /* richer green */
+--highlight: color(display-p3 1 0.85 0);            /* pure P3 yellow */
+```
+
+### Feature Detection
+```css
+@media (color-gamut: p3) {
+  :root {
+    --accent: color(display-p3 0.92 0.34 0.15);
+    --success: color(display-p3 0.18 0.75 0.35);
+  }
+}
+```
+
+### Progressive Enhancement Pattern
+Always define an sRGB fallback first, then override for wide gamut displays. This ensures every screen gets a reasonable color.
+
+```css
+:root {
+  /* sRGB fallback (works everywhere) */
+  --accent: oklch(0.65 0.22 35);
+  --success: oklch(0.55 0.18 150);
+  --highlight: oklch(0.82 0.18 90);
+}
+
+@media (color-gamut: p3) {
+  :root {
+    /* P3 override (wider gamut screens) */
+    --accent: oklch(0.65 0.27 35);          /* push chroma beyond sRGB limit */
+    --success: oklch(0.55 0.22 150);
+    --highlight: oklch(0.82 0.22 90);
+  }
+}
+```
+
+Note: OKLCH values automatically map to the widest gamut the browser and display support. Increasing chroma beyond ~0.15-0.20 (depending on hue) often pushes into P3 territory. This makes OKLCH the ideal space for progressive enhancement because you write one value and the browser resolves it to the best available gamut.
+
+### When to Use P3
+- Hero gradients and accent splashes where vibrancy matters
+- Success/error states that need to "pop" on capable screens
+- Brand colors that were designed in P3 (increasingly common)
+- Image overlays and tinted surfaces that blend with wide-gamut photography
+
+### When NOT to Use P3
+- Body text colors (perceptual difference is negligible)
+- Border and surface tokens (subtle differences, not worth the complexity)
+- Any context where the sRGB version already looks correct
+
+---
+
+## 9. Common Mistakes
 
 - Using pure black (#000) for text (use tinted near-black instead)
 - Using gray text on colored backgrounds (low contrast, hard to read)

@@ -41,7 +41,13 @@ Before judging anything, understand what you're working with.
 1. **Identify changed files** -- run `git diff --name-only` and `git diff --staged --name-only` to find modified frontend files (.tsx, .jsx, .css, .html, .svelte, .vue, .astro)
 2. **Read the files** -- read every changed frontend file in full. Do not review code you haven't read.
 3. **Find the design system** -- search for `DESIGN.md`, `tailwind.config.*`, `theme.ts`, `tokens.css`, `globals.css`, or CSS variable definitions. If a design system exists, all findings must be measured against it.
-4. **Check for existing patterns** -- grep for common component imports (shadcn, radix, headless-ui, chakra, mantine) to understand the component library in use.
+4. **Load project design config** -- search for `.picasso.md` in the project root (or locate it with `glob **/.picasso.md`). If found, parse it and treat its values as the project's declared design preferences:
+   - **Typography overrides** -- if the config declares a font (e.g., Inter, Roboto), do NOT flag it as AI-slop. The project has intentionally chosen it.
+   - **Color overrides** -- if the config declares a primary accent or neutral tint, validate usage against those values instead of Picasso defaults.
+   - **Design settings** -- honor `DESIGN_VARIANCE`, `MOTION_INTENSITY`, and `VISUAL_DENSITY` when calibrating the severity and scope of suggestions.
+   - **Constraints** -- treat every listed constraint as a hard requirement that overrides other Picasso recommendations (e.g., if "No animations" is listed, skip all motion suggestions).
+   - If `.picasso.md` is **not found**, proceed with Picasso defaults and note in the report that no project config was detected. You can generate one with the config template at `templates/picasso-config.md`.
+5. **Check for existing patterns** -- grep for common component imports (shadcn, radix, headless-ui, chakra, mantine) to understand the component library in use.
 
 ## Phase 2: Design Audit
 
@@ -310,7 +316,304 @@ When the user invokes these commands, execute the corresponding workflow:
 | `/theme` | Generate or apply a theme via DESIGN.md |
 | `/stitch` | Generate a complete DESIGN.md from the current codebase |
 | `/harden` | Add error handling, loading states, empty states, edge case handling |
-| `/a11y` | Accessibility-only audit: run axe-core, check ARIA, validate contrast, test keyboard nav |
+| `/a11y` | Accessibility-only audit: run axe-cli, pa11y, and Lighthouse accessibility category with JSON output parsing; check ARIA, validate contrast, test keyboard nav |
+| `/perf` | Performance audit: run Lighthouse CLI, extract Core Web Vitals (LCP, CLS, INP/TBT), report with pass/fail thresholds |
+| `/visual-diff` | Visual regression: take desktop + mobile screenshots in light and dark mode, analyze for AI-slop indicators |
+| `/consistency` | Multi-page consistency check: discover routes, run checks across all pages, produce cross-page comparison table |
+| `/lint-design` | Design token linting: find hardcoded colors, inconsistent spacing, non-standard fonts, z-index chaos, transition:all |
+| `/install-hooks` | Generate a git pre-commit hook that runs fast grep-based design checks (no server needed) |
+| `/ci-setup` | Generate a GitHub Actions workflow for PR design review: a11y, perf, screenshots, PR comment |
+
+## Advanced Automation Commands
+
+### /perf -- Performance Audit
+
+Run Lighthouse CLI, extract Core Web Vitals (LCP, CLS, INP/TBT), report scores with pass/fail thresholds:
+
+```bash
+npx lighthouse http://localhost:3000 --only-categories=performance --output=json --output-path=/tmp/lh-perf.json --chrome-flags="--headless --no-sandbox" --quiet
+```
+
+Parse the JSON output to extract these metrics with thresholds:
+
+| Metric | Pass | Needs Work | Fail |
+|---|---|---|---|
+| Performance Score | >= 90 | 50-89 | < 50 |
+| FCP (First Contentful Paint) | < 1.8s | 1.8-3.0s | > 3.0s |
+| LCP (Largest Contentful Paint) | < 2.5s | 2.5-4.0s | > 4.0s |
+| CLS (Cumulative Layout Shift) | < 0.1 | 0.1-0.25 | > 0.25 |
+| TBT (Total Blocking Time) | < 200ms | 200-600ms | > 600ms |
+| SI (Speed Index) | < 3.4s | 3.4-5.8s | > 5.8s |
+
+```bash
+# Parse results from JSON
+node -e "
+const r = require('/tmp/lh-perf.json');
+const a = r.audits;
+console.log('Performance Score:', Math.round(r.categories.performance.score * 100));
+console.log('FCP:', a['first-contentful-paint'].displayValue);
+console.log('LCP:', a['largest-contentful-paint'].displayValue);
+console.log('CLS:', a['cumulative-layout-shift'].displayValue);
+console.log('TBT:', a['total-blocking-time'].displayValue);
+console.log('SI:', a['speed-index'].displayValue);
+"
+```
+
+### /visual-diff -- Visual Regression
+
+Take screenshots at desktop (1440x900) and mobile (375x812), both light and dark mode. Use Playwright screenshot commands:
+
+```bash
+# Desktop - Light mode
+npx playwright screenshot http://localhost:3000 /tmp/picasso-desktop-light.png --viewport-size=1440,900 2>/dev/null
+
+# Desktop - Dark mode (inject prefers-color-scheme)
+npx playwright screenshot http://localhost:3000 /tmp/picasso-desktop-dark.png --viewport-size=1440,900 --color-scheme=dark 2>/dev/null
+
+# Mobile - Light mode
+npx playwright screenshot http://localhost:3000 /tmp/picasso-mobile-light.png --viewport-size=375,812 2>/dev/null
+
+# Mobile - Dark mode
+npx playwright screenshot http://localhost:3000 /tmp/picasso-mobile-dark.png --viewport-size=375,812 --color-scheme=dark 2>/dev/null
+```
+
+Analyze all four screenshots visually for:
+- AI-slop indicators (generic gradients, everything centered, uniform card grids)
+- Light/dark mode consistency (same hierarchy, no lost contrast, no invisible elements)
+- Mobile responsiveness (no overflow, readable text, adequate touch targets)
+- Visual regression from previous state (if baseline screenshots exist)
+
+### /consistency -- Multi-Page Consistency Check
+
+Discover routes (from file-system routing or user input), run the same checks across all pages, produce a cross-page comparison table:
+
+```bash
+# Discover routes from Next.js app directory
+find src/app -name "page.tsx" -o -name "page.jsx" 2>/dev/null | sed 's|src/app||;s|/page\.\(tsx\|jsx\)||;s|^$|/|'
+
+# Or from pages directory
+find src/pages -name "*.tsx" -o -name "*.jsx" 2>/dev/null | sed 's|src/pages||;s|\.\(tsx\|jsx\)||;s|/index$|/|'
+```
+
+For each discovered route:
+1. Take a screenshot
+2. Extract font families used (`grep -rn 'font-family\|fontFamily'`)
+3. Extract color values used
+4. Extract spacing patterns
+5. Check for shared component usage
+
+Output a cross-page comparison table:
+
+```
+| Page     | Font Families | Primary Colors | Spacing Base | Shared Components |
+|----------|---------------|----------------|--------------|-------------------|
+| /        | Geist, mono   | oklch(...)     | 4px scale    | Header, Footer    |
+| /about   | Geist, mono   | oklch(...)     | 4px scale    | Header, Footer    |
+| /pricing | Geist, serif  | #3b82f6 (!)    | mixed (!)    | Header only (!)   |
+```
+
+Flag inconsistencies with `(!)` markers.
+
+### /lint-design -- Design Token Linting
+
+Run Stylelint + grep-based checks to find design system violations:
+
+```bash
+# 1. Find hardcoded colors that should be tokens
+grep -rn '#[0-9a-fA-F]\{3,8\}' --include="*.tsx" --include="*.jsx" --include="*.css" | grep -v 'node_modules\|\.git\|\.next' | head -30
+
+# 2. Find inconsistent spacing values (non-4px-multiple)
+grep -rn 'padding\|margin\|gap' --include="*.css" --include="*.tsx" | grep -oP '\d+px' | sort | uniq -c | sort -rn
+
+# 3. Find non-standard font stacks
+grep -rn 'font-family\|fontFamily' --include="*.css" --include="*.tsx" --include="*.jsx" | grep -v 'node_modules' | head -20
+
+# 4. Find z-index chaos (values not from a defined scale)
+grep -rn 'z-index\|zIndex' --include="*.css" --include="*.tsx" --include="*.jsx" | grep -v 'node_modules' | head -20
+
+# 5. Find transition:all (anti-pattern)
+grep -rn 'transition:\s*all\|transition-property:\s*all' --include="*.css" --include="*.tsx" --include="*.jsx" | grep -v 'node_modules'
+
+# 6. Run Stylelint if available
+npx stylelint "**/*.css" --formatter=json 2>/dev/null || true
+```
+
+Report findings grouped by category with severity and suggested token replacements.
+
+### /install-hooks -- Git Pre-commit Hook
+
+Generate a `.git/hooks/pre-commit` script that runs fast design checks (grep-based, no server needed):
+
+```bash
+cat > .git/hooks/pre-commit << 'HOOK'
+#!/usr/bin/env bash
+set -e
+
+STAGED=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(tsx|jsx|css|html|svelte|vue)$' || true)
+[ -z "$STAGED" ] && exit 0
+
+ERRORS=0
+
+echo "Running Picasso pre-commit checks..."
+
+# 1. transition:all detection
+if echo "$STAGED" | xargs grep -l 'transition:\s*all' 2>/dev/null; then
+  echo "ERROR: transition:all found. Specify properties explicitly."
+  ERRORS=$((ERRORS + 1))
+fi
+
+# 2. Pure black (#000) detection
+if echo "$STAGED" | xargs grep -l '#000000\|#000[^0-9a-fA-F]' 2>/dev/null; then
+  echo "ERROR: Pure black (#000) found. Use tinted near-black instead."
+  ERRORS=$((ERRORS + 1))
+fi
+
+# 3. outline:none detection (without focus-visible replacement)
+if echo "$STAGED" | xargs grep -l 'outline:\s*none\|outline:\s*0[^.]' 2>/dev/null; then
+  echo "WARNING: outline:none found. Ensure :focus-visible has a replacement."
+  ERRORS=$((ERRORS + 1))
+fi
+
+# 4. Missing alt text detection
+if echo "$STAGED" | xargs grep -l '<img' 2>/dev/null | xargs grep -L 'alt=' 2>/dev/null; then
+  echo "ERROR: <img> tags without alt attribute found."
+  ERRORS=$((ERRORS + 1))
+fi
+
+if [ "$ERRORS" -gt 0 ]; then
+  echo ""
+  echo "Picasso found $ERRORS design issue(s). Fix them before committing."
+  exit 1
+fi
+
+echo "Picasso pre-commit checks passed."
+exit 0
+HOOK
+chmod +x .git/hooks/pre-commit
+echo "Pre-commit hook installed."
+```
+
+### /ci-setup -- GitHub Actions Workflow
+
+Generate a `.github/workflows/picasso-review.yml` that runs on PRs touching frontend files:
+
+```yaml
+name: Picasso Design Review
+
+on:
+  pull_request:
+    paths:
+      - '**/*.tsx'
+      - '**/*.jsx'
+      - '**/*.css'
+      - '**/*.html'
+      - '**/*.svelte'
+      - '**/*.vue'
+
+jobs:
+  picasso-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Start dev server
+        run: npm run dev &
+        env:
+          PORT: 3000
+
+      - name: Wait for server
+        run: npx wait-on http://localhost:3000 --timeout 60000
+
+      - name: Accessibility audit (axe-cli)
+        run: npx axe-cli http://localhost:3000 --exit --save /tmp/axe-results.json || true
+
+      - name: Accessibility audit (pa11y)
+        run: npx pa11y http://localhost:3000 --reporter json > /tmp/pa11y-results.json || true
+
+      - name: Lighthouse accessibility
+        run: |
+          npx lighthouse http://localhost:3000 --only-categories=accessibility --output=json --output-path=/tmp/lh-a11y.json --chrome-flags="--headless --no-sandbox" --quiet || true
+
+      - name: Lighthouse performance
+        run: |
+          npx lighthouse http://localhost:3000 --only-categories=performance --output=json --output-path=/tmp/lh-perf.json --chrome-flags="--headless --no-sandbox" --quiet || true
+
+      - name: Take screenshots
+        run: |
+          npx playwright install chromium --with-deps
+          npx playwright screenshot http://localhost:3000 /tmp/picasso-desktop.png --viewport-size=1440,900
+          npx playwright screenshot http://localhost:3000 /tmp/picasso-mobile.png --viewport-size=375,812
+
+      - name: Parse scores
+        id: scores
+        run: |
+          PERF=$(node -e "const r=require('/tmp/lh-perf.json');console.log(Math.round(r.categories.performance.score*100))" 2>/dev/null || echo "N/A")
+          A11Y=$(node -e "const r=require('/tmp/lh-a11y.json');console.log(Math.round(r.categories.accessibility.score*100))" 2>/dev/null || echo "N/A")
+          echo "perf=$PERF" >> $GITHUB_OUTPUT
+          echo "a11y=$A11Y" >> $GITHUB_OUTPUT
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: picasso-results
+          path: /tmp/picasso-*.png
+
+      - name: Post PR comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const perf = '${{ steps.scores.outputs.perf }}';
+            const a11y = '${{ steps.scores.outputs.a11y }}';
+            const body = `## Picasso Design Review\n\n| Metric | Score |\n|---|---|\n| Performance | ${perf}/100 |\n| Accessibility | ${a11y}/100 |\n\nScreenshots uploaded as workflow artifacts.`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
+```
+
+### /a11y -- Accessibility Audit (Enhanced)
+
+Run all three accessibility tools with JSON output parsing:
+
+```bash
+# 1. axe-cli -- WCAG 2.1 AA violations
+npx axe-cli http://localhost:3000 --exit --save /tmp/axe-results.json 2>/dev/null
+node -e "
+const r = require('/tmp/axe-results.json');
+const v = r[0]?.violations || [];
+console.log('axe-cli: ' + v.length + ' violations');
+v.forEach(v => console.log('  [' + v.impact + '] ' + v.id + ': ' + v.description + ' (' + v.nodes.length + ' nodes)'));
+"
+
+# 2. pa11y -- HTML_CodeSniffer + WCAG 2.1 AA
+npx pa11y http://localhost:3000 --reporter json > /tmp/pa11y-results.json 2>/dev/null
+node -e "
+const r = require('/tmp/pa11y-results.json');
+console.log('pa11y: ' + r.length + ' issues');
+r.forEach(i => console.log('  [' + i.type + '] ' + i.code + ': ' + i.message));
+"
+
+# 3. Lighthouse accessibility category
+npx lighthouse http://localhost:3000 --only-categories=accessibility --output=json --output-path=/tmp/lh-a11y.json --chrome-flags="--headless --no-sandbox" --quiet
+node -e "
+const r = require('/tmp/lh-a11y.json');
+const score = Math.round(r.categories.accessibility.score * 100);
+console.log('Lighthouse a11y score: ' + score + '/100');
+const failed = Object.values(r.audits).filter(a => a.score === 0);
+failed.forEach(a => console.log('  FAIL: ' + a.id + ' - ' + a.title));
+"
+```
+
+Combine results from all three tools, deduplicate overlapping findings, and report with severity levels.
 
 ## Rules
 
