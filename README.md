@@ -445,10 +445,30 @@ Picasso ships as both a **skill** (knowledge base) and an **agent** (autonomous 
 | `/harden` | Error handling and edge cases: text overflow, i18n (RTL, expansion), network errors, empty/loading/error states, browser compat |
 | `/onboard` | Design onboarding: signup friction reduction, first-run experience, progressive feature discovery, setup checklists |
 
+### `/godmode` -- The Nuclear Option
+
+One command. Full transformation. Interview, audit, score, roast, fix everything, verify, before/after report.
+
+```
+/godmode
+
+Phase 1: Understanding your project...
+Phase 2: Scoring... 42/100. Roasting... 🔥🔥🔥🔥
+Phase 3: Found 23 issues. Fixing all = score ~85. Proceed? [y]
+Phase 4: Fixing... typography ✓ color ✓ spacing ✓ a11y ✓ motion ✓ responsive ✓ perf ✓
+Phase 5: Re-scoring... 87/100 (+45 points)
+Phase 6: Before/after report generated.
+
+GODMODE Complete: 42 → 87 (+45 points), 47 files modified, 23 issues fixed
+```
+
+---
+
 ### Creative
 
 | Command | What It Does |
 |---|---|
+| `/godmode` | The ultimate command: interview + audit + score + roast + fix everything + before/after report |
 | `/picasso` | Run the design interview -- deep discovery conversation, generates `.picasso.md` config |
 | `/roast` | Brutally honest critique with designer-Twitter energy. Every roast includes the fix. Rated 🔥-🔥🔥🔥🔥🔥. |
 | `/score` | Quantified 0-100 design score with category breakdown (typography, color, spacing, a11y, motion, responsive, perf, anti-slop) |

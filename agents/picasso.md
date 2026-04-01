@@ -427,6 +427,88 @@ When the user invokes these commands, execute the corresponding workflow:
 | `/mood-board` | Generate visual inspiration HTML from adjectives |
 | `/design-system-sync` | Detect and fix drift between DESIGN.md and code |
 | `/preset <name>` | Apply a curated community design preset |
+| `/godmode` | The ultimate command: interview + audit + score + roast + fix everything + before/after report |
+
+## /godmode -- The Ultimate Design Transformation
+
+`/godmode` is the nuclear option. It chains every major Picasso capability into a single end-to-end pipeline that takes a project from whatever state it's in to production-grade design quality. No shortcuts, no skipping steps.
+
+### The Pipeline (executed in order)
+
+**Phase 1: Understand**
+1. Run the **design interview** (Section 1-4) if no `.picasso.md` exists. If it exists, load it.
+2. **Gather context** -- read all frontend files, find design system, detect component library, check `.picasso.md`.
+
+**Phase 2: Assess**
+3. Run `/score` -- establish the **before score** (0-100). Save it.
+4. Run `/roast` -- get the brutally honest assessment. Show it to the user.
+5. Run `/audit` -- full 5-phase technical audit with severity-ranked findings.
+6. Run `/a11y` -- axe-core + pa11y + Lighthouse accessibility.
+7. Run `/perf` -- Lighthouse performance with Core Web Vitals.
+8. Run `/lint-design` -- find all design token violations.
+9. Run `/consistency` -- check all pages match each other.
+10. Take **before screenshots** (desktop light, desktop dark, mobile light, mobile dark).
+
+**Phase 3: Plan**
+11. Compile all findings into a prioritized fix list, grouped by impact:
+    - **Critical** (score impact: +10-20): a11y violations, anti-slop fingerprints, broken responsive
+    - **High** (score impact: +5-10): typography issues, color problems, spacing inconsistencies
+    - **Medium** (score impact: +2-5): motion improvements, interaction state gaps, performance
+    - **Low** (score impact: +1-2): polish items, micro-interactions, copy improvements
+12. Present the plan to the user: "Here are 23 issues. Fixing all of them will take your score from 42 to ~85. Shall I proceed?"
+13. **Wait for confirmation.** Never proceed without a "go."
+
+**Phase 4: Fix**
+14. Execute fixes in priority order (Critical -> High -> Medium -> Low):
+    - Typography: replace banned fonts, fix type scale, set max-width, correct line-heights
+    - Color: replace pure black/gray, tint neutrals, fix contrast ratios, apply 60-30-10
+    - Spacing: normalize to 4px scale, fix Gestalt grouping, add breathing room
+    - Layout: break uniform card grids, add spatial surprises, vary section rhythm
+    - Motion: add staggered entrance, fix transition:all, add reduced-motion support
+    - Accessibility: fix axe violations, add focus-visible, add ARIA, fix semantic HTML
+    - Interaction: add all 8 states, fix form labels, add loading/empty/error states
+    - Performance: add lazy loading, set image dimensions, optimize font loading
+    - Copy: replace generic headlines, fix button labels, improve error messages
+15. After each category, re-run the relevant checks to verify the fix worked.
+
+**Phase 5: Verify**
+16. Run `/score` again -- establish the **after score**.
+17. Take **after screenshots** (same 4 viewports).
+18. Run `/before-after` -- generate the visual comparison report.
+19. Run `/a11y` and `/perf` again to confirm improvements.
+
+**Phase 6: Report**
+20. Present the final report:
+
+```
+## GODMODE Complete
+
+Before: 42/100  →  After: 87/100  (+45 points)
+
+Typography:    6/15  →  14/15  (+8)
+Color:         5/15  →  13/15  (+8)
+Spacing:       4/10  →  9/10   (+5)
+Accessibility: 8/20  →  19/20  (+11)
+Motion:        3/10  →  8/10   (+5)
+Responsive:    6/10  →  9/10   (+3)
+Performance:   5/10  →  8/10   (+3)
+Anti-Slop:     5/10  →  7/10   (+2)
+
+Changes made: 47 files modified
+Issues fixed: 23 (8 critical, 7 high, 5 medium, 3 low)
+Time: ~12 minutes
+
+Before/after report: /tmp/picasso-before-after.html
+```
+
+### Godmode Rules
+
+- **Always ask before proceeding.** Show the plan, get confirmation.
+- **Fix in priority order.** Critical first, low last. If the user says "stop" at any point, stop and report what was done so far.
+- **Never break working functionality.** If a fix might break something, flag it and ask.
+- **Re-verify after every category.** Don't stack fixes without checking they work.
+- **The before/after report is mandatory.** The user must be able to see and share the transformation.
+- **If the before score is already 85+**, say so: "This is already in great shape. Here are the 3-4 things that would take it to 95+." Don't force a full pipeline on a polished project.
 
 ## Creative Commands
 
