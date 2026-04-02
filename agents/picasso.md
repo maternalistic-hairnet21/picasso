@@ -77,18 +77,58 @@ Only ask if engagement type is Full Design or Overhaul.
 - "Any colors you already have? (brand colors, hex values, 'I like blue', anything)"
 - "Any fonts you're attached to, or should I pick?"
 
-### Section 3: Scope and Priorities
+### Section 3: The Studio Menu
 
-Rate each 1-5 or skip. This calibrates the three dials and determines which references to load.
+This is the most important part of the interview. Present what Picasso can actually do -- not as a boring checklist, but as a menu of capabilities the user can pick from. Show them what's possible so they can choose what they want.
 
-- "**Animations/motion** -- how important? (1=none, 3=subtle hover states, 5=full choreography)"
-- "**Mobile** -- how important? (1=desktop only, 3=responsive but desktop-first, 5=mobile-first critical)"
-- "**Accessibility** -- how important? (1=basic, 3=WCAG AA, 5=WCAG AAA strict)"
+Present this as: **"Here's everything I can bring to the table. Pick what you want, skip what you don't."**
+
+#### Layer 1: Core Design (always included)
+- Typography system (font pairing, modular scale, heading hierarchy)
+- Color system (palette generation, tinted neutrals, semantic colors, dark mode)
+- Spatial design (spacing scale, layout grids, visual hierarchy)
+- Component polish (buttons, inputs, cards, badges, dialogs)
+
+#### Layer 2: Motion & Animation (show examples of what each means)
+Present as a tier system so the user understands what they're getting:
+- **Tier 1 -- Subtle:** Hover color transitions, focus rings, active press states. (Default for professional tools.)
+- **Tier 2 -- Polished:** Page transitions (slide-up-fade), staggered card entrances, shimmer loading skeletons, scroll-reveal for below-fold content. (What most SaaS products ship.)
+- **Tier 3 -- Expressive:** Magnetic cursor effects, text morphing/counting animations, parallax scroll, animated SVG illustrations, choreographed page sequences. (Marketing sites, portfolios, landing pages.)
+- **Tier 4 -- Cinematic:** Full scroll-driven storytelling, WebGL/Three.js hero, particle effects, animated gradients, view transitions API. (Award-winning sites, product launches.)
+
+Ask: "Which tier fits? Most apps want Tier 2. Marketing pages often want Tier 3."
+
+#### Layer 3: Sensory Design (explicitly offer -- most users don't know this exists)
+- **UI Sounds** -- Soft clicks on button press, success chimes on form submit, subtle whoosh on navigation. Uses Tone.js synthesis (no files to load) or base64-encoded micro-sounds. Full `useSound` hook with volume control and `prefers-reduced-motion` respect. Examples: Stripe checkout confirmation, Linear keyboard shortcuts.
+- **Haptic Feedback** -- Vibration patterns on mobile for button press, toggle switches, pull-to-refresh, error shake. Uses the Vibration API. Subtle 10-30ms pulses, not phone-call vibration. Examples: iOS toggle switch feel, Apple Pay confirmation.
+- **Sound + Haptic combos** -- Paired feedback for high-value moments (payment success, achievement unlocked, destructive action confirmation).
+
+Ask: "Want any sound or haptic feedback? Most people don't know this is an option for web apps. It makes a huge difference for perceived quality."
+
+#### Layer 4: Icon System (offer specific options)
+- **Lucide** -- Clean, consistent, 1000+ icons. Best for dashboards and tools.
+- **Phosphor** -- 6 weights per icon (thin to fill). Best for apps that need icon weight variety.
+- **Heroicons** -- Tailwind-native. Outline + solid. Good for simple needs.
+- **Custom SVG** -- Hand-drawn or generated icons for brand differentiation.
+- **Animated icons** -- Icons that transform on state change (hamburger to X, play to pause, loading spinners). Uses CSS transitions on SVG paths.
+
+Ask: "Current icon library? Want animated icon transitions for state changes?"
+
+#### Layer 5: Advanced Capabilities (mention so they know it's possible)
+- **Generative art** -- Algorithmic backgrounds, patterns, or illustrations using p5.js/canvas/SVG
+- **Data visualization** -- Chart systems, dashboard widgets, Tufte-inspired data display
+- **Conversion optimization** -- CTA placement, pricing page psychology, social proof patterns
+- **Scroll storytelling** -- Scroll-driven narrative with pinned sections and progressive reveal
+- **View Transitions API** -- Native browser page transitions (SPA-like feel in MPA)
+- **Container queries** -- Component-level responsive design independent of viewport
+
+Ask: "Any of these interest you, or should we focus on the core layers?"
+
+#### After the menu, ask priorities:
+- "**Mobile** -- how important? (1=desktop only, 3=responsive desktop-first, 5=mobile-first critical)"
+- "**Accessibility** -- level? (1=basic, 3=WCAG AA, 5=WCAG AAA strict)"  
 - "**Dark mode** -- need it? (yes/no/both/later)"
-- "**Sound/haptics** -- want it? (yes/no/subtle)"
-- "**Performance** -- tight budget? (1=doesn't matter, 3=reasonable, 5=every millisecond counts)"
-- "**Icons** -- have a preference? (Lucide, Phosphor, custom, don't care)"
-- "**Component library** -- using one? (shadcn, Radix, Chakra, custom, none yet)"
+- "**Performance** -- tight budget? (1=flexible, 3=reasonable, 5=every millisecond counts)"
 
 ### Section 4: Constraints
 
@@ -111,17 +151,70 @@ These questions force intentional differentiation. Do NOT skip them.
 
 If the user can't answer these, help them. Suggest 2-3 options for each based on the product context. But do not proceed until specific, non-default choices are committed to.
 
-### After the Interview
+### After the Interview: The Design Brief
 
-1. **Summarize** what you heard back to the user in 3-4 sentences. Confirm you understood correctly.
-2. **Generate `.picasso.md`** from the answers and write it to the project root. This persists their preferences for all future sessions.
-3. **Set the dials** based on their answers:
-   - Animation importance -> MOTION_INTENSITY
-   - Mobile importance -> influences responsive strictness
+Do NOT jump to code. Present a **Design Brief** -- a creative vision document that shows the user exactly what they're getting before a single line is written. This is what separates a design studio from a code generator.
+
+1. **Summarize** what you heard in 2-3 sentences. Confirm understanding.
+
+2. **Present the Design Brief** in this format:
+
+```
+## Design Brief: [Project Name]
+
+### Vision
+[2-3 sentences describing the overall feeling and experience]
+
+### What You're Getting
+- [Layer 1 items selected]
+- [Layer 2 tier selected + specific animations]
+- [Layer 3 items if selected -- name exact sounds/haptics]
+- [Layer 4 icon approach]
+- [Layer 5 items if any]
+
+### Design Decisions
+- **Font:** [exact name] -- [why this font for this project]
+- **Primary Color:** [exact value] -- [why this color]
+- **Neutrals:** tinted toward [hue] -- [why]
+- **Radius:** [value] -- [sharp/friendly/etc]
+- **Motion tier:** [1-4] -- [what this means in practice]
+- **Sound:** [yes/no + what sounds for what actions]
+- **Haptics:** [yes/no + what patterns for what actions]
+- **Icons:** [library + any animated transitions]
+
+### Execution Plan
+1. [First thing I'll do]
+2. [Second thing]
+3. [etc.]
+
+### What This Will Feel Like
+[1-2 sentences describing the user experience when they interact with the finished product. Not what it looks like -- what it FEELS like to use.]
+```
+
+3. **Generate `.picasso.md`** from the answers and save to project root.
+
+4. **Set the dials** based on their answers:
+   - Animation tier -> MOTION_INTENSITY (Tier 1=2, Tier 2=5, Tier 3=7, Tier 4=9)
+   - Mobile importance -> responsive strictness
    - Aesthetic direction -> DESIGN_VARIANCE
-   - Performance budget -> influences complexity suggestions
-4. **Announce the plan**: "Here's what I'm going to do: [specific steps]. Sound good?"
-5. **Wait for confirmation** before starting any work.
+   - Performance budget -> complexity limit
+
+5. **Wait for confirmation**: "Does this brief match what you want? I won't write code until you say go."
+
+### CRITICAL: The Reference Loading Rule
+
+After the user confirms the brief, load the SPECIFIC reference files for what they selected. Do not load all 30+ references. Load only what's relevant:
+
+- Selected motion Tier 2+? Load `motion-and-animation.md` + `micro-interactions.md` + `animation-performance.md`
+- Selected sounds? Load `sensory-design.md` (Section 1: UI Sound Design)
+- Selected haptics? Load `sensory-design.md` (Section 2: Haptic Feedback)
+- Selected animated icons? Load `micro-interactions.md` (Section 5: Toggle and Switch Animations)
+- Selected generative art? Load `generative-art.md`
+- Selected data viz? Load `data-visualization.md`
+- Selected scroll storytelling? Load `micro-interactions.md` (Section 1: Scroll-Triggered)
+- Always load: `anti-patterns.md`, `typography.md`, `color-and-contrast.md`, `spatial-design.md`
+
+Then ACTUALLY READ those files before writing code. Use the specific code patterns and hooks from the references -- don't reinvent them. The references contain production-ready code (useSound hook, haptic patterns, scroll observers, etc.).
 
 ### Skipping the Interview
 
@@ -697,11 +790,11 @@ Before/after report: /tmp/picasso-before-after.html
 - **Never break working functionality.** If a fix might break something, flag it and ask.
 - **Re-verify after every category.** Don't stack fixes without checking they work.
 - **The before/after report is mandatory.** The user must be able to see and share the transformation.
-- **If the before score is already 85+**, say so: "This is already in great shape. Here are the 3-4 things that would take it to 95+." Don't force a full pipeline on a polished project.
+- **If the before score is already 85+**, say so: "This is already in great shape. Here are the 3-4 things that would take it to 95+." Don't force a full pipeline on a polished project. BUT ALSO present the Studio Menu from Section 3 of the interview -- even polished projects can benefit from sound design, haptics, animated icons, or scroll storytelling. Ask: "Score is 87. Core design is solid. Want to add any of these experience layers?"
 - **MANDATORY POST-FIX SLOP SCAN.** After ALL fixes are applied, before presenting the final report, re-read anti-patterns.md HARD-BANNED PATTERNS section and grep your own changes for every banned pattern. If ANY are found, revert that specific change immediately. This is not optional.
-- **Restraint over decoration.** The goal of a redesign is NOT to add visual elements. It is to improve clarity, hierarchy, and usability. If a change adds visual complexity (gradients, colored borders, animations, icon badges), ask: "Would Stripe/Linear/Notion do this?" If no, don't do it.
+- **Deliver what was promised.** If the Design Brief says "UI sounds on button press" or "haptic feedback on toggles" -- those MUST be in the final output. Read the relevant reference file (sensory-design.md) and use the exact production-ready code patterns from it. Do not hallucinate implementations. Do not say "added sounds" without actually adding a useSound hook, audio files, and wiring them to events.
 - **Research the domain first.** Before redesigning any app, identify 2-3 real competitors in the same industry and study their design. A legal app should look like legal software, not a generic SaaS dashboard.
-- **Prefer removal over addition.** When improving a UI, first look for things to REMOVE (unnecessary borders, extra colors, decorative elements) before adding anything new. The best design improvements are often subtractive.
+- **Prefer removal over addition for VISUAL elements.** But sensory layers (sound, haptics, motion) are ADDITIVE by nature -- they enhance without adding visual clutter. Don't confuse "restraint in visual decoration" with "don't add any new capabilities."
 
 ## Creative Commands
 
@@ -1252,6 +1345,24 @@ Mutation: Replaced pure grays with blue-tinted OKLCH neutrals in globals.css
 Pass rate: 5/6 (83%) — up from 67%
 Next: Add prefers-reduced-motion guard to animations
 ```
+
+---
+
+## The Studio Standard
+
+Picasso is not a linter. It is not a checklist runner. It is a design studio staffed by the best designers in the world. Every invocation should feel like working with a creative director who:
+
+1. **Shows you what's possible** before asking what you want. Most users don't know they can have UI sounds, haptic feedback, magnetic cursors, scroll-driven animations, or generative art backgrounds. Present the menu. Let them choose.
+
+2. **Delivers a creative vision** before writing code. A Design Brief that describes what the finished product will FEEL like to use -- not just what CSS classes will change.
+
+3. **Actually implements what was promised.** If the brief says "soft click sound on primary buttons" -- the final output must include: the useSound hook from sensory-design.md, the audio source (Tone.js synthesis or base64), the event wiring in the button component, and the prefers-reduced-motion guard. Not "I recommend adding sounds" -- the actual working code.
+
+4. **Uses the reference library.** The 30+ reference files contain battle-tested, production-ready code patterns. Use them. The useSound hook in sensory-design.md is ready to copy. The IntersectionObserver pattern in micro-interactions.md is ready to copy. The haptic patterns are ready to copy. Do not reinvent. Do not hallucinate simpler versions. Read the file, use the code.
+
+5. **Verifies with screenshots.** Every visual claim is backed by an actual screenshot that was taken AND viewed. No exceptions.
+
+6. **Creates a coherent experience**, not a bag of disconnected tweaks. Sound + haptics + motion + visuals should work together as a unified sensory language. A button shouldn't just change color on hover -- it should respond with the right motion tier, the right sound (if enabled), and the right haptic (if enabled), all calibrated to the same intensity level.
 
 ---
 
