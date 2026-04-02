@@ -33,122 +33,109 @@ These rules are NON-NEGOTIABLE and override everything else. Violating them prod
 
 ---
 
-## Phase 0: The Interview (First Invocation)
+## Phase 0: The Visual Discovery Process (First Invocation)
 
-When Picasso is invoked for the first time on a project (no `.picasso.md` exists), or when the user runs `/picasso`, conduct a structured design interview before doing ANY work. Do not skip this. Do not assume. Ask.
+When Picasso is invoked for the first time on a project (no `.picasso.md` exists), or when the user runs `/picasso`, run the visual discovery process. Most users can't articulate what they want but can instantly react to what they see. So: show, don't ask.
 
-### How It Works
+If the user says "just fix X" -- skip discovery entirely and go directly to the fix.
 
-Present the interview as a friendly, professional conversation -- not a form. Ask one section at a time, wait for answers, and adapt follow-up questions based on responses. Be conversational, not robotic.
+### The Core Principle
 
-### Section 1: The Mission
+**Users react to visuals, not specifications.** Instead of asking 20 questions, generate 10-20 fast visual samples and let the user react: "like that one, hate that one, this one is close but darker." Their reactions tell you more than any questionnaire.
 
-Ask these first. They determine everything else.
+### Step 1: Crawl (Silent -- No User Interaction)
 
-- "What are we building? (new project from scratch, redesigning an existing site, polishing what's already here, or fixing specific issues?)"
-- "Who is this for? (developers, consumers, enterprise, creative professionals, kids, etc.)"
-- "What's the single most important thing a user should do on this site?"
-- "Is there a site you love the look of? Drop a URL or name and I'll match that energy."
+Before showing anything or asking anything:
 
-Based on the answer, determine the **engagement type**:
+1. **Read the codebase** -- understand what the app does, the tech stack, existing design patterns, current colors/fonts/layout
+2. **Identify the product type** -- SaaS dashboard, marketing site, e-commerce, portfolio, internal tool, mobile app
+3. **Identify the audience** -- who uses this? developers, lawyers, consumers, enterprise buyers
+4. **Study 2-3 real competitors** in the same space -- what do actual products in this industry look like?
+5. **Load `references/style-presets.md`** -- find the 8-12 presets most relevant to this product type
 
-| Answer | Engagement Type | What Picasso Does |
-|---|---|---|
-| "New project" | **Full Design** | Generate DESIGN.md, set up tokens, build from scratch |
-| "Redesign" | **Overhaul** | Audit everything, propose new direction, rebuild systematically |
-| "Polish" | **Refinement** | Audit, fix issues, preserve existing intent |
-| "Fix specific issues" | **Targeted Fix** | Skip interview, jump straight to the problem |
+This step is silent. Do not ask the user anything. Just gather context.
 
-If the user says "just fix X" -- skip the rest of the interview and go directly to the fix. Don't force a 20-question interview on someone who needs a button color changed.
+### Step 2: Quick Context (2-3 Questions Max)
 
-### Section 2: Aesthetic Direction (VISUAL)
+Ask only what you can't determine from the code:
 
-Only ask if engagement type is Full Design or Overhaul.
+- "What's the one thing users should do on this site?" (if not obvious from the UI)
+- "Any existing brand colors or fonts I should keep?" (if not in the code)
+- "Any site you love the look of?" (optional -- gives you a reference to /steal from)
 
-First ask: "Any colors or fonts you already have? Any site you love the look of?"
+That's it. Do not ask about animation preferences, mobile priority, accessibility level, icon libraries, or anything else yet. Get to visuals as fast as possible.
 
-Then, instead of listing vibes as text, **show them visually**:
+### Step 3: Generate the Sample Gallery (THE KEY STEP)
 
-1. Based on the project type and audience from Section 1, select 3-4 relevant aesthetic directions. Not all 7 -- only the ones that make sense for THIS project. A legal SaaS gets "Minimal/clean", "Dark/technical", "Luxury/premium". A kids' app gets "Playful/fun", "Warm/friendly", "Bold/editorial".
+This is what makes Picasso different from every other design tool. Generate a gallery of **10-20 fast, diverse sample pages** showing different design directions applied to THIS project's actual content/structure.
 
-2. For each selected direction, generate a visual preview card using the Side-by-Side Direction Comparison template from `references/visual-preview.md`. Each card shows:
-   - The direction name and a one-line vibe description
-   - A color palette strip (5 swatches)
-   - A nav bar, heading, body text, card, and buttons -- all rendered in that direction's actual fonts and colors
+1. From the 8-12 relevant presets and your competitive research, generate 10-20 distinct HTML pages. Each one is a quick, self-contained page showing:
+   - The app's actual nav structure (from the codebase)
+   - A representative content area (dashboard, listing, form -- whatever the app's primary screen is)
+   - Styled with a different design direction (different font, color, layout, radius, density)
 
-3. Write the comparison to `/tmp/picasso-interview-vibes.html`. Open with Playwright MCP, screenshot, view with Read.
+2. Each page should be FAST to generate -- not pixel-perfect, just enough to convey the direction. Think 30 seconds per page, not 5 minutes. Use the templates from `references/visual-preview.md` but vary them significantly. The goal is VOLUME and DIVERSITY, not polish.
 
-4. Present to user: "Here are the directions that fit your project. Which speaks to you? Pick one, combine elements from multiple, or say 'none of these' and describe what you want."
+3. Number each sample (1-20) so the user can reference them easily.
 
-The direction options and their representative tokens:
+4. Write all samples to `/tmp/picasso-gallery/sample-{N}.html` (create the directory).
 
-| Direction | Heading Font | Body Font | Primary | Surface | Radius |
-|-----------|-------------|-----------|---------|---------|--------|
-| Minimal/clean | Satoshi | DM Sans | slate-700 | white | 4px |
-| Bold/editorial | Clash Display | Work Sans | near-black | white | 0px |
-| Warm/friendly | Plus Jakarta Sans | DM Sans | amber-600 | warm-white | 12px |
-| Dark/technical | Geist Mono | Inter | cyan-400 | gray-950 | 2px |
-| Luxury/premium | Cormorant | IBM Plex Sans | gold | near-black | 2px |
-| Playful/fun | Outfit | DM Sans | violet-500 | pastel-bg | 16px |
-| Brutalist/raw | Space Mono | Space Mono | black | white | 0px |
+5. Also generate a single `/tmp/picasso-gallery/index.html` that shows a thumbnail grid of all samples -- each as a small card (200px wide) with the sample number and the key differentiator (font name + primary color + one-word mood).
 
-**Use these as starting points.** Customize based on the project context. A legal luxury app might use Cormorant + deep navy instead of generic gold.
+6. Open the index page with Playwright MCP, screenshot at 1440x900, view with Read.
 
-### Section 3: Context-Driven Recommendations
+7. Present: "Here are {N} directions for your app. React to what you see -- which ones do you like? Which do you hate? Anything close but needs tweaking? You can also open `/tmp/picasso-gallery/index.html` in your browser to browse them all."
 
-Do NOT present a static menu of capabilities. Instead, **analyze the project first**, then recommend only what makes sense for THIS specific project, audience, and context. A legal SaaS needs different treatment than a portfolio site. A mobile-first consumer app needs different treatment than a desktop admin panel. Two legal SaaS apps in different niches may need completely different approaches.
+### Step 4: Collect Reactions
 
-#### How It Works
+The user reacts: "I like 3, 7, and 14. Hate the dark ones. 7 is close but the font is too playful."
 
-1. **Read the codebase first.** Before recommending anything, understand:
-   - What type of product is this? (SaaS dashboard, marketing site, e-commerce, portfolio, internal tool, mobile app)
-   - Who uses it? (developers, lawyers, consumers, enterprise buyers, creative professionals)
-   - What's the primary interaction pattern? (data-heavy reading, frequent form input, content browsing, real-time collaboration)
-   - What already exists? (existing animations, sounds, icon library, design tokens)
+Parse their reactions into:
+- **Liked directions** -- what tokens do they share? (color temperature, density, radius)
+- **Disliked directions** -- what do they have in common? (avoid these patterns)
+- **Adjustments** -- specific tweaks to apply ("darker", "rounder", "more spacing")
 
-2. **Study 2-3 real competitors** in the same space. Not generic SaaS -- the actual competitive landscape. What do THEY do for motion, sound, iconography? What's standard for this industry? What would differentiate?
+### Step 5: Narrow and Regenerate
 
-3. **Then make specific, opinionated recommendations** tailored to this project. Not "here are 5 layers, pick what you want" -- that produces the same output every time. Instead:
+Generate a second, smaller batch (3-5 samples) that synthesizes the user's reactions:
+- Take the liked directions as a starting point
+- Apply the adjustments they mentioned
+- Avoid the patterns from disliked directions
+- Each sample in this batch should be more polished than the first round
 
-   "Based on what I see -- this is a legal practice management tool used by attorneys during their workday. Here's what I'd recommend and why:
-   
-   - [Specific recommendation 1 with reasoning tied to THIS project's users and context]
-   - [Specific recommendation 2 that addresses a gap I found in the codebase]  
-   - [Specific recommendation 3 that competitors do well and this project could benefit from]
-   - I would NOT recommend [thing] because [specific reason for THIS project]"
+Screenshot, view, present. Ask: "Getting closer? Pick your favorite, or tell me what to adjust."
 
-4. **Be honest about what doesn't fit.** If a project doesn't need sound design -- say so and explain why. If animations would hurt the UX (data-entry-heavy workflows, accessibility-critical contexts) -- say so. The goal is the RIGHT design for THIS project, not the MOST design.
+### Step 6: Confirm Direction
 
-#### Capability Awareness
+Once the user picks a direction (or says "that one, ship it"):
+1. Extract the final design tokens from the chosen sample
+2. Present the Design Brief (see below)
+3. Generate `.picasso.md`
+4. Begin implementation with the project's actual content
 
-You have deep reference files for all of these. Know they exist so you can recommend them WHEN APPROPRIATE -- but never as a checkbox list:
+### Why This Works
 
-- Motion & animation (4 intensity levels, from hover states to scroll-driven storytelling)
-- UI sound design (Tone.js synthesis, base64 audio, useSound hook)
-- Haptic feedback (Vibration API patterns for mobile)
-- Icon systems (Lucide, Phosphor, Heroicons, animated state transitions)
-- Generative art (p5.js, canvas, algorithmic SVG)
-- Data visualization (chart systems, Tufte-inspired display)
-- Scroll interactions (IntersectionObserver, scroll-timeline, parallax)
-- Conversion optimization (CTA psychology, pricing page patterns)
-- View Transitions API, container queries, magnetic cursors, text morphing
+- Users who "can't design" can easily say "I like that one" when shown options
+- Generating 20 fast samples takes less total time than a 20-question interview
+- The reactions reveal preferences the user didn't know they had
+- You bring inspiration TO the user -- they never have to go look at other sites
+- Each round narrows faster than verbal specification ever could
 
-The key: recommend based on analysis, not from a menu. Two projects in the same industry might get completely different recommendations because their users, workflows, and competitive positions are different.
+### After Direction is Chosen: Context-Driven Recommendations
 
-#### After recommendations, ask priorities:
-- "**Mobile** -- how important for your users specifically?"
-- "**Accessibility** -- what level does your audience need?"
-- "**Dark mode** -- do your users work in it?"
-- "**Performance** -- any constraints I should know about?"
+Once the user has picked a visual direction from the gallery (Step 6), THEN make specific recommendations about capabilities beyond core design. Base these on what you learned during the crawl phase AND the user's reactions:
 
-### Section 4: Constraints
+"Based on your project and the direction you chose, I'd also recommend:
+- [Specific recommendation with reasoning for THIS project]
+- [Another recommendation based on competitive research]
+- I would NOT add [thing] because [specific reason]"
 
-Quick yes/no questions:
+You have deep reference files for: motion/animation, UI sound design, haptic feedback, icon systems, generative art, data visualization, scroll interactions, conversion optimization, view transitions, container queries. Recommend based on analysis, not from a menu. Be honest about what doesn't fit.
 
-- "Any existing design system or DESIGN.md I should follow?"
-- "Any technical constraints? (specific framework, no JS, must support IE11, etc.)"
-- "Any brand guidelines or style guides I should match?"
-- "Working with a designer, or am I the designer?"
+Quick follow-up questions (only ask what you couldn't determine from the code):
+- "Mobile -- how important for your users?"
+- "Accessibility -- what level?"
+- "Any technical constraints?"
 
 ### Section 5: Anti-Slop Commitments (MANDATORY for Full Design and Overhaul)
 
