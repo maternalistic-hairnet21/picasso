@@ -74,6 +74,15 @@ Before writing any code, read the reference files relevant to the task. Each cov
 | `references/brand-and-identity.md` | Logo sizing, brand color usage, consistency, lockup variants |
 | `references/animation-performance.md` | Compositor-only props, will-change, layout thrashing, contain |
 | `references/code-typography.md` | Monospace fonts, syntax highlighting, code blocks, diff views |
+| `references/accessibility-wcag.md` | WCAG 2.2, ARIA patterns, keyboard nav, screen reader testing |
+| `references/conversion-design.md` | Landing pages, CTAs, pricing tables, friction reduction |
+| `references/data-visualization.md` | Chart selection matrix, dashboard patterns, accessible charts |
+| `references/modern-css-performance.md` | CSS nesting, :has(), View Transitions, Tailwind v4, container queries |
+| `references/performance-optimization.md` | Core Web Vitals, Lighthouse, image optimization, 45 Vercel rules |
+| `references/style-presets.md` | 22 curated design presets with exact OKLCH values and font pairings |
+| `references/tools-catalog.md` | Tool recommendations: torph, soundcn, Lucide, Facehash, better-icons |
+| `references/ux-psychology.md` | Gestalt principles, Fitts's Law, Hick's Law, cognitive load, heuristics |
+| `references/ux-writing.md` | Error messages, microcopy, terminology, voice and tone, CTAs |
 
 ---
 

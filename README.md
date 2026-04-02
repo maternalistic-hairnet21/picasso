@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  20 reference domains &bull; 35+ commands &bull; 4,700+ lines of actionable design intelligence<br/>
+  32 reference domains &bull; 40+ commands &bull; 11,000+ lines of actionable design intelligence<br/>
   Every interface looks like a senior design engineer spent days on it.
 </p>
 
@@ -36,7 +36,7 @@ Existing design skills are shallow. They tell you to "use good typography" witho
 
 ### Depth That No Other Skill Matches
 
-Picasso covers **20 specialized reference domains**, each with concrete rules, specific values, and ready-to-use code. This isn't a collection of vague principles -- it's an engineering specification for beautiful interfaces.
+Picasso covers **32 specialized reference domains**, each with concrete rules, specific values, and ready-to-use code. This isn't a collection of vague principles -- it's an engineering specification for beautiful interfaces.
 
 | Domain | What You Get |
 |---|---|
@@ -61,6 +61,16 @@ Picasso covers **20 specialized reference domains**, each with concrete rules, s
 | **UX Writing** | Error message formula (what + why + fix), button label rules (verb + object), translation expansion percentages, terminology consistency |
 | **Style Presets** | 22 curated visual presets with hex values, font pairings, border-radius, and signature UI elements, mapped to moods |
 | **Performance Optimization** | Vercel's 45 React/Next.js rules across 7 priority tiers with BAD/GOOD code examples |
+| **Navigation Patterns** | Breadcrumbs with ARIA, sidebar collapse, tabs vs button groups, mobile bottom bar vs hamburger, sticky headers, mega menus, skip links |
+| **Tables & Forms** | Sortable tables with `aria-sort`, responsive strategies, inline editing, multi-select, form validation (blur/submit/real-time), multi-step forms |
+| **Loading & States** | Duration rules (<1s/1-3s/3s+/10s+), skeleton shimmer CSS, 5 empty state types, error boundaries, retry with backoff, offline detection |
+| **Dark Mode** | Preference hierarchy, surface elevation (lighter = higher), mode transitions, accent adjustment, image dimming, forced-colors, autofill fix |
+| **Images & Media** | AVIF/WebP/SVG decision tree, srcset/sizes, CLS prevention, favicon multi-format, OG images (1200x630), video backgrounds |
+| **Micro-Interactions** | IntersectionObserver scroll animations, View Transitions API, magnetic cursors, gesture detection (swipe/pinch), animation budget (max 3 concurrent) |
+| **i18n Visual Patterns** | Logical properties for RTL, text expansion by language (+35% German), CJK rendering, Noto font stacks, icon mirroring rules |
+| **Brand & Identity** | Logo sizing (min 24px), clear space rules, lockup variants, 60-30-10 brand color usage, when to bend brand rules |
+| **Animation Performance** | Compositor-only properties (transform + opacity only), will-change lifecycle, layout thrashing batching, `contain` property, GPU hints |
+| **Code Typography** | JetBrains Mono/Fira Code selection, syntax highlighting contrast (3:1 min), code block design, copy button UX, diff views, terminal styling |
 
 ### The AI-Slop Firewall
 
@@ -272,10 +282,10 @@ We compared Picasso against every publicly available AI design skill as of April
 
 | Metric | Picasso | Anthropic frontend-design | Impeccable | Taste Skill | Generic skills |
 |---|---|---|---|---|---|
-| **Reference domains** | **20** | 1 | 7 | 1 | 1-3 |
-| **Total lines of guidance** | **4,700+** | ~120 | ~2,500 | ~200 | 50-300 |
+| **Reference domains** | **32** | 1 | 7 | 1 | 1-3 |
+| **Total lines of guidance** | **11,000+** | ~120 | ~2,500 | ~200 | 50-300 |
 | **Anti-pattern rules** | **50+** | ~10 | ~30 | ~5 | 0-5 |
-| **Steering commands** | **35+** | 0 | 20 | 0 | 0-3 |
+| **Steering commands** | **40+** | 0 | 20 | 0 | 0-3 |
 | **ARIA patterns documented** | **12 widgets** | 0 | 0 | 0 | 0 |
 | **React performance rules** | **45 (Vercel)** | 0 | 0 | 0 | 0 |
 | **Chart/data viz guidance** | **Full matrix** | None | None | None | None |
@@ -336,6 +346,12 @@ npx picasso-skill --cursor
 # Install for Codex
 npx picasso-skill --codex
 
+# Install for OpenClaw
+npx picasso-skill --openclaw
+
+# Or via ClawHub marketplace
+clawhub install picasso
+
 # Custom path
 npx picasso-skill --path ./my-skills
 ```
@@ -378,14 +394,15 @@ Picasso ships as both a **skill** (knowledge base) and an **agent** (autonomous 
 
 | | Skill | Agent |
 |---|---|---|
-| **What it is** | 20 reference files of design intelligence | Autonomous design auditor |
+| **What it is** | 32 reference files of design intelligence | Autonomous design auditor with anti-slop gate |
 | **How it works** | Loaded into context when designing | Runs as a sub-process with its own tools |
-| **When it runs** | When you ask for design help | Proactively after frontend code changes |
-| **Can audit code** | Only when asked | Automatically |
-| **Can run axe-core** | No | Yes |
-| **Can screenshot pages** | No | Yes (via Playwright) |
-| **Can auto-fix issues** | No | Yes |
+| **When it runs** | When you ask for design help | On explicit commands (/audit, /roast, /godmode, etc.) |
+| **Can audit code** | Only when asked | Yes, with structured scoring |
+| **Can run axe-core** | No | Yes (via CLI) |
+| **Can screenshot pages** | No | Yes (via Playwright MCP) |
+| **Can auto-fix issues** | No | Yes (with pre-flight git/test checks) |
 | **Can enforce design system** | No | Yes (greps for token violations) |
+| **Enforces anti-slop gate** | Via SKILL.md instructions | Yes, mandatory before any code generation |
 
 ---
 
@@ -481,6 +498,10 @@ GODMODE Complete: 42 → 87 (+45 points), 47 files modified, 23 issues fixed
 | `/mood-board` | Generate interactive HTML mood board from adjectives |
 | `/design-system-sync` | Detect and auto-fix drift between DESIGN.md and actual code |
 | `/preset <name>` | Apply a curated preset (linear, stripe, vercel, notion, brutalist, etc.) |
+| `/quick-audit` | 5-minute fast audit: 6 binary pass/fail checks (font, color, layout, spacing, a11y, anti-slop) |
+| `/autorefine` | Binary evaluation loop: 6 criteria, mutate one thing at a time, iterate to 95%+ pass rate |
+| `/backlog` | Create persistent design debt backlog with impact-priority scoring in `.picasso-backlog.md` |
+| `/variants` | Generate 2-3 distinct visual directions for A/B comparison with code previews |
 
 ### Advanced
 
@@ -505,27 +526,39 @@ GODMODE Complete: 42 → 87 (+45 points), 47 files modified, 23 issues fixed
 ## References
 
 ```
-references/
-  typography.md                   # Type systems, font pairing, scales, OpenType, vertical rhythm
-  color-and-contrast.md           # OKLCH, tinted neutrals, dark mode, 60-30-10, dangerous combos
-  spatial-design.md               # 4px spacing scale, grids, hierarchy, Squint Test, optical adjustments
-  motion-and-animation.md         # Duration rule, easing curves, staggering, text morphing, reduced motion
-  interaction-design.md           # 8 states, forms, focus, loading, Popover API, dropdown positioning
-  responsive-design.md            # Input method detection, safe areas, container queries, real device testing
-  sensory-design.md               # soundcn, web-haptics, multi-sensory integration patterns
-  react-patterns.md               # Server Components, composition, state management, data fetching, styling
-  anti-patterns.md                # 50+ banned patterns across all domains (the most important file)
-  design-system.md                # 9-section DESIGN.md format, theme generation, token structure, 4 themes
-  generative-art.md               # Philosophy-first process, p5.js, seeded randomness, parameter controls
-  component-patterns.md           # 40+ components, state matrix, compound patterns, sizing conventions
-  ux-psychology.md                # Gestalt, Fitts's/Hick's/Miller's/Jakob's Law, F/Z-pattern, Peak-End
-  data-visualization.md           # Chart selection matrix, dashboard layouts, data palettes, Tufte, sparklines
-  modern-css-performance.md       # Nesting, :has(), @layer, anchor positioning, View Transitions, Tailwind v4
-  conversion-design.md            # Landing pages, CTAs, pricing, onboarding, navigation/IA, notifications
-  accessibility-wcag.md           # 12 ARIA patterns, WCAG 2.2, SPA focus, accessible tables, drag-and-drop
-  ux-writing.md                   # Error formula, button labels, empty states, i18n, terminology
-  style-presets.md                # 22 visual presets with colors, fonts, signature elements, mood mapping
-  performance-optimization.md     # 45 Vercel rules across 7 priority tiers with code examples
+references/                          # 32 files, 9,300+ lines
+  anti-patterns.md                   # 50+ banned patterns (THE MOST IMPORTANT FILE)
+  typography.md                      # Type systems, font pairing, scales, OpenType, vertical rhythm
+  color-and-contrast.md              # OKLCH, tinted neutrals, dark mode, 60-30-10, dangerous combos
+  spatial-design.md                  # 4px spacing scale, grids, hierarchy, Squint Test
+  depth-and-elevation.md             # Dual shadows, layering, shadow scale, z-index, hover patterns
+  motion-and-animation.md            # Duration rule, easing curves, staggering, text morphing
+  micro-interactions.md              # Scroll animations, View Transitions, gestures, magnetic cursors
+  animation-performance.md           # Compositor-only props, will-change, layout thrashing, contain
+  interaction-design.md              # 8 states, forms, focus, Popover API, dropdown positioning
+  navigation-patterns.md             # Breadcrumbs, sidebar, tabs, bottom bar, mega menus, skip links
+  tables-and-forms.md                # Sortable tables, inline editing, validation, multi-step forms
+  loading-and-states.md              # Skeletons, error boundaries, 5 empty state types, offline
+  responsive-design.md               # Input method detection, safe areas, container queries
+  dark-mode.md                       # Preference hierarchy, elevation, transitions, testing
+  images-and-media.md                # Format selection, srcset, favicons, OG images, video
+  brand-and-identity.md              # Logo sizing, brand color 60-30-10, lockup variants
+  i18n-visual-patterns.md            # RTL, logical properties, text expansion, CJK, Noto stacks
+  code-typography.md                 # Monospace fonts, syntax highlighting, code blocks, diff views
+  sensory-design.md                  # soundcn, web-haptics, multi-sensory integration
+  react-patterns.md                  # Server Components, composition, state management, styling
+  design-system.md                   # 9-section DESIGN.md format, theme generation, tokens
+  generative-art.md                  # Philosophy-first process, p5.js, seeded randomness
+  component-patterns.md              # 40+ components, state matrix, compound patterns
+  ux-psychology.md                   # Gestalt, Fitts's/Hick's/Miller's/Jakob's Law, F/Z-pattern
+  ux-writing.md                      # Error formula, button labels, empty states, terminology
+  data-visualization.md              # Chart selection matrix, dashboard layouts, Tufte
+  conversion-design.md               # Landing pages, CTAs, pricing, onboarding, notifications
+  accessibility-wcag.md              # 12 ARIA patterns, WCAG 2.2, SPA focus, accessible tables
+  modern-css-performance.md          # Nesting, :has(), @layer, View Transitions, Tailwind v4
+  performance-optimization.md        # 45 Vercel rules across 7 priority tiers
+  style-presets.md                   # 22 visual presets with OKLCH values and font pairings
+  tools-catalog.md                   # torph, soundcn, Lucide, Facehash, better-icons
 ```
 
 ---
