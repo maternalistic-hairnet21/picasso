@@ -422,8 +422,7 @@ Picasso ships as both a **skill** (knowledge base) and an **agent** (autonomous 
 | `/polish` | Final pass before shipping: visual alignment, typography refinement, color/contrast, all 8 interaction states, micro-interactions, content/copy, edge cases |
 | `/simplify` | Strip to essence: reduce scope, flatten structure, remove decorations, progressive disclosure, shorter copy, fewer variants |
 | `/normalize` | Realign to design system standards: fix hardcoded colors, inconsistent tokens, broken dark mode, spacing violations |
-| `/typeset` | Fix typography: font choices, hierarchy clarity, sizing scale, readability (line length, line-height, contrast), OpenType features |
-| `/arrange` | Fix layout: establish spacing system, create visual rhythm, choose right layout tool (Flexbox vs Grid), break card grid monotony |
+| `/harden` | Error handling and edge cases: text overflow, i18n, network errors, empty/loading/error states, browser compat |
 
 ### Amplification
 
@@ -432,8 +431,6 @@ Picasso ships as both a **skill** (knowledge base) and an **agent** (autonomous 
 | `/animate` | Add purposeful motion: page load choreography, micro-interactions, state transitions, scroll effects, loading delight |
 | `/bolder` | Amplify timid designs: extreme type scale (3x-5x), vibrant color, spatial drama, dramatic shadows, custom elements |
 | `/quieter` | Tone down aggressive designs: reduce saturation to 70-85%, soften weights, increase whitespace, shorter animation distances |
-| `/colorize` | Introduce strategic color: semantic states, accent application, tinted backgrounds, data visualization, decorative elements |
-| `/delight` | Add moments of joy: button feedback, loading delight, success celebrations, personality in copy, sound cues, easter eggs |
 
 ### Aesthetic Presets
 
@@ -453,15 +450,14 @@ Picasso ships as both a **skill** (knowledge base) and an **agent** (autonomous 
 | `/haptics` | Add mobile haptic feedback using web-haptics (4 presets + custom patterns) |
 | `/redesign` | Full audit + identify problems + fix systematically + re-audit cycle |
 
-### Production
+### Design Debt
 
 | Command | What It Does |
 |---|---|
-| `/adapt` | Adapt for devices: mobile (thumb-zone), tablet (two-column), desktop (multi-column), print, email (600px, table-based) |
-| `/clarify` | Improve UX copy: error messages, form labels, button text, help text, empty states, confirmation dialogs |
-| `/optimize` | Performance: image optimization, JS bundle reduction, CSS critical path, font loading, animation 60fps, network efficiency |
-| `/harden` | Error handling and edge cases: text overflow, i18n (RTL, expansion), network errors, empty/loading/error states, browser compat |
-| `/onboard` | Design onboarding: signup friction reduction, first-run experience, progressive feature discovery, setup checklists |
+| `/backlog` | Create persistent design debt backlog with impact-priority scoring in `.picasso-backlog.md` |
+| `/variants` | Generate 2-3 distinct visual directions for A/B comparison with code previews |
+| `/quick-audit` | 5-minute fast audit: 6 binary pass/fail checks (font, color, layout, spacing, a11y, anti-slop) |
+| `/autorefine` | Binary evaluation loop: 6 criteria, mutate one thing at a time, iterate to 95%+ pass rate |
 
 ### `/godmode` -- The Nuclear Option
 
@@ -481,33 +477,6 @@ GODMODE Complete: 42 → 87 (+45 points), 47 files modified, 23 issues fixed
 ```
 
 ---
-
-### Creative
-
-| Command | What It Does |
-|---|---|
-| `/godmode` | The ultimate command: interview + audit + score + roast + fix everything + before/after report |
-| `/picasso` | Run the design interview -- deep discovery conversation, generates `.picasso.md` config |
-| `/roast` | Brutally honest critique with designer-Twitter energy. Every roast includes the fix. Rated 🔥-🔥🔥🔥🔥🔥. |
-| `/score` | Quantified 0-100 design score with category breakdown (typography, color, spacing, a11y, motion, responsive, perf, anti-slop) |
-| `/steal <url>` | Extract design DNA from any live website into a `.picasso.md` config |
-| `/mood <word>` | Generate complete design system from a single evocative word (cyberpunk, cottage, luxury, etc.) |
-| `/evolve` | Multi-round iterative refinement: 3 directions → pick → refine → ship |
-| `/compete <url>` | Head-to-head design comparison against a competitor with per-category scoring |
-| `/before-after` | Visual side-by-side comparison report after changes (HTML export) |
-| `/mood-board` | Generate interactive HTML mood board from adjectives |
-| `/design-system-sync` | Detect and auto-fix drift between DESIGN.md and actual code |
-| `/preset <name>` | Apply a curated preset (linear, stripe, vercel, notion, brutalist, etc.) |
-| `/quick-audit` | 5-minute fast audit: 6 binary pass/fail checks (font, color, layout, spacing, a11y, anti-slop) |
-| `/autorefine` | Binary evaluation loop: 6 criteria, mutate one thing at a time, iterate to 95%+ pass rate |
-| `/backlog` | Create persistent design debt backlog with impact-priority scoring in `.picasso-backlog.md` |
-| `/variants` | Generate 2-3 distinct visual directions for A/B comparison with code previews |
-
-### Advanced
-
-| Command | What It Does |
-|---|---|
-| `/overdrive` | Technically extraordinary effects. View Transitions, scroll-driven animations, WebGL, @property gradients, Web Audio, spring physics. 60fps. Progressive enhancement. |
 
 ### Automation (Agent-Only)
 

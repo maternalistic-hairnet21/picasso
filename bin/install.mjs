@@ -29,7 +29,7 @@ if (command === "help" || command === "--help" || command === "-h") {
     npx picasso-skill --path DIR   Install to a custom directory
 
   What gets installed:
-    .claude/skills/picasso/        Skill (knowledge base: 13 reference files)
+    .claude/skills/picasso/        Skill (knowledge base: 32 reference files)
     .claude/agents/picasso.md      Agent (autonomous design auditor)
   `);
   process.exit(0);

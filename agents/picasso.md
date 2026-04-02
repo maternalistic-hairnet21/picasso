@@ -176,23 +176,44 @@ If 3+ are checked, you MUST change your commitments until fewer than 3 remain.
 Your design knowledge comes from the Picasso skill reference files. Before any audit or design work, load the relevant references:
 
 ```
-skills/picasso/SKILL.md                          # Core rules and workflow
-skills/picasso/references/anti-patterns.md       # What NOT to do (always load this)
-skills/picasso/references/typography.md           # Font selection, scales, pairing
-skills/picasso/references/color-and-contrast.md   # OKLCH, tinted neutrals, dark mode
-skills/picasso/references/spatial-design.md       # Spacing, grids, hierarchy
-skills/picasso/references/motion-and-animation.md # Easing, staggering, reduced motion
-skills/picasso/references/interaction-design.md   # Forms, focus, loading, errors
-skills/picasso/references/responsive-design.md    # Mobile-first, container queries
-skills/picasso/references/sensory-design.md       # Sound, haptics
-skills/picasso/references/react-patterns.md       # React 19, Tailwind v4, dark mode
-skills/picasso/references/accessibility.md        # ARIA, WCAG 2.2, keyboard nav
-skills/picasso/references/design-system.md        # DESIGN.md, theming, tokens
-skills/picasso/references/generative-art.md       # p5.js, SVG, canvas
-skills/picasso/references/component-patterns.md   # Naming, taxonomy, state matrix
+skills/picasso/SKILL.md                              # Core rules and workflow (always load)
+skills/picasso/references/anti-patterns.md           # What NOT to do (always load)
+
+# Load based on what the task involves:
+skills/picasso/references/typography.md              # Fonts, scales, pairing
+skills/picasso/references/color-and-contrast.md      # OKLCH, tinted neutrals
+skills/picasso/references/spatial-design.md          # Spacing, grids, hierarchy
+skills/picasso/references/depth-and-elevation.md     # Shadows, z-index, layering
+skills/picasso/references/motion-and-animation.md    # Easing, staggering, duration
+skills/picasso/references/micro-interactions.md      # Scroll animations, gestures, View Transitions
+skills/picasso/references/animation-performance.md   # Compositor props, will-change, contain
+skills/picasso/references/interaction-design.md      # Forms, focus, states, Popover API
+skills/picasso/references/navigation-patterns.md     # Breadcrumbs, sidebar, tabs, bottom bar
+skills/picasso/references/tables-and-forms.md        # Sortable tables, validation, multi-step
+skills/picasso/references/loading-and-states.md      # Skeletons, empty states, error boundaries
+skills/picasso/references/responsive-design.md       # Mobile-first, container queries
+skills/picasso/references/dark-mode.md               # Preference hierarchy, elevation, testing
+skills/picasso/references/images-and-media.md        # Formats, srcset, favicons, OG images
+skills/picasso/references/brand-and-identity.md      # Logo sizing, brand color usage
+skills/picasso/references/i18n-visual-patterns.md    # RTL, logical properties, CJK
+skills/picasso/references/code-typography.md         # Monospace, syntax highlighting, diffs
+skills/picasso/references/sensory-design.md          # Sound, haptics
+skills/picasso/references/react-patterns.md          # Server Components, Tailwind v4
+skills/picasso/references/accessibility-wcag.md      # ARIA, WCAG 2.2, keyboard nav
+skills/picasso/references/design-system.md           # DESIGN.md, theming, tokens
+skills/picasso/references/generative-art.md          # p5.js, SVG, canvas
+skills/picasso/references/component-patterns.md      # Naming, taxonomy, state matrix
+skills/picasso/references/ux-psychology.md           # Gestalt, Fitts's Law, heuristics
+skills/picasso/references/ux-writing.md              # Error messages, microcopy, CTAs
+skills/picasso/references/data-visualization.md      # Chart matrix, dashboards, Tufte
+skills/picasso/references/conversion-design.md       # Landing pages, CTAs, pricing
+skills/picasso/references/modern-css-performance.md  # Nesting, :has(), @layer, subgrid
+skills/picasso/references/performance-optimization.md # 45 Vercel rules, Core Web Vitals
+skills/picasso/references/style-presets.md           # 22 curated presets with values
+skills/picasso/references/tools-catalog.md           # torph, soundcn, Lucide, Facehash
 ```
 
-Find these files by searching the project's `.claude/skills/picasso/`, `~/.claude/skills/picasso/`, or by locating `SKILL.md` with a glob search for `**/picasso/SKILL.md`. Load `anti-patterns.md` on every invocation. Load other references based on what you find in the code.
+Find these files by searching `.claude/skills/picasso/`, `~/.claude/skills/picasso/`, or by globbing `**/picasso/SKILL.md`. Load `anti-patterns.md` on every invocation. Load other references based on what you find in the code.
 
 ## Phase 1: Gather Context
 
