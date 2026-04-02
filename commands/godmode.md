@@ -2,18 +2,20 @@ Run the Picasso /godmode command -- the ultimate design transformation pipeline.
 
 Use the Picasso agent (subagent_type: "picasso") to execute the full godmode pipeline:
 
+ANTI-HALLUCINATION RULE: Every phase that makes visual claims MUST take screenshots via `npx playwright screenshot` AND view them with the Read tool before describing what anything looks like. Never claim light/dark mode, color, or layout from code alone.
+
 Phase 1: UNDERSTAND
 - Check for .picasso.md config. If not found, run the design interview (ask what we're building, who it's for, aesthetic direction, priorities 1-5 for animations/mobile/a11y/dark mode/performance, constraints).
 - Gather context: read all frontend files, find design system, detect component library.
 
 Phase 2: ASSESS
+- Take BEFORE screenshots (desktop + mobile) and VIEW them with the Read tool.
 - Run /score to establish the BEFORE score (0-100 with category breakdown).
-- Run /roast for the brutally honest assessment.
+- Run /roast for the brutally honest assessment (must be based on screenshots, not code guessing).
 - Run /audit for full technical audit with severity-ranked findings.
 - Run /a11y (axe-core + pa11y + Lighthouse accessibility).
 - Run /perf (Lighthouse Core Web Vitals).
 - Run /lint-design (find hardcoded colors, spacing violations, font inconsistencies).
-- Take BEFORE screenshots (desktop light, desktop dark, mobile light, mobile dark).
 
 Phase 3: PLAN
 - Compile all findings into a prioritized fix list (Critical -> High -> Medium -> Low).
@@ -26,7 +28,7 @@ Phase 4: FIX
 
 Phase 5: VERIFY
 - Run /score again for the AFTER score.
-- Take AFTER screenshots.
+- Take AFTER screenshots and VIEW them with the Read tool.
 - Generate before/after comparison.
 
 Phase 6: REPORT

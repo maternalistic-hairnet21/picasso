@@ -9,15 +9,16 @@ Round 1: DIRECTIONS
 
 Round 2: IMPLEMENTATION
 - Implement the chosen direction.
-- Take screenshots.
+- Take screenshots AND VIEW them with the Read tool.
 - Ask "What do you love? What's not right?"
 
 Round 3+: REFINEMENT
-- Apply feedback. Screenshot again.
+- Apply feedback. Take screenshots AND VIEW them with the Read tool.
 - Ask "Are we there? Or one more round?"
 - Continue until user says "ship it" or max 5 rounds.
 
 Rules:
 - Each direction must be genuinely different (not 3 variations of the same thing)
-- Always screenshot between rounds
+- Always screenshot between rounds AND view screenshots with Read tool before describing changes
 - Max 5 rounds before suggesting we ship
+- NEVER describe what a change looks like without viewing the screenshot first
