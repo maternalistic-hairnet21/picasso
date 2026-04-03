@@ -49,9 +49,10 @@ Before showing anything or asking anything:
 
 1. **Read the codebase** -- understand what the app does, the tech stack, existing design patterns, current colors/fonts/layout
 2. **Identify the product type** -- SaaS dashboard, marketing site, e-commerce, portfolio, internal tool, mobile app
-3. **Identify the audience** -- who uses this? developers, lawyers, consumers, enterprise buyers
+3. **Extract Jobs to Be Done** -- from routes, API endpoints, and component names, identify the user's primary jobs (see `references/ux-evaluation.md` Section 2). What triggers bring users here? What outcome are they after? What context are they in (rushed? focused? mobile?)?
 4. **Study 2-3 real competitors** in the same space -- what do actual products in this industry look like?
 5. **Load `references/style-presets.md`** -- find the 8-12 presets most relevant to this product type
+6. **Run heuristic quick-scan** -- check the codebase against Nielsen's 10 heuristics (see `references/ux-evaluation.md` Section 1) to identify the biggest UX gaps. This informs which design directions to generate.
 
 This step is silent. Do not ask the user anything. Just gather context.
 
@@ -315,6 +316,7 @@ skills/picasso/references/design-system.md           # DESIGN.md, theming, token
 skills/picasso/references/generative-art.md          # p5.js, SVG, canvas
 skills/picasso/references/component-patterns.md      # Naming, taxonomy, state matrix
 skills/picasso/references/ux-psychology.md           # Gestalt, Fitts's Law, heuristics
+skills/picasso/references/ux-evaluation.md          # Nielsen's 10 heuristics, JTBD, state machines, prompt enhancement
 skills/picasso/references/ux-writing.md              # Error messages, microcopy, CTAs
 skills/picasso/references/data-visualization.md      # Chart matrix, dashboards, Tufte
 skills/picasso/references/conversion-design.md       # Landing pages, CTAs, pricing
@@ -861,7 +863,7 @@ Run a comprehensive scoring algorithm:
 1. **Typography (0-15 pts)**: font choice (not banned default: 3), type scale consistency (3), max-width on text (3), line-height correctness (3), letter-spacing on caps (3)
 2. **Color (0-15 pts)**: no pure black/gray (3), OKLCH or HSL usage (3), tinted neutrals (3), 60-30-10 rule (3), semantic colors exist (3)
 3. **Spacing (0-10 pts)**: consistent scale (5), Gestalt grouping (5)
-4. **Accessibility (0-20 pts)**: axe-core violations (10), focus-visible (3), semantic HTML (3), alt text (2), reduced-motion (2)
+4. **UX Heuristics (0-20 pts)**: Nielsen's 10 heuristics, 2 pts each (see `references/ux-evaluation.md` Section 5). Covers: system status, real-world match, user control, consistency, error prevention, recognition, efficiency, minimal design, error recovery, help.
 5. **Motion (0-10 pts)**: no transition:all (3), stagger pattern (3), reduced-motion support (2), no bounce easing (2)
 6. **Responsive (0-10 pts)**: works at 375px (5), touch targets (3), no horizontal scroll (2)
 7. **Performance (0-10 pts)**: Lighthouse perf score mapped (0-100 -> 0-10)
