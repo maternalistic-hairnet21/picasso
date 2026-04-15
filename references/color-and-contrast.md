@@ -208,3 +208,12 @@ Blend colors at runtime without intermediate tokens. Always use `in oklch` for p
 - Full saturation on large surfaces (eye strain; reserve full chroma for small accents)
 - No hover/focus states with visible color change
 - Using `color-mix(in srgb)` instead of `color-mix(in oklch)` (muddier results)
+
+---
+
+## Color as Visual Weight
+Complementary to the 60-30-10 rule, think of color roles as physical weight:
+- **Neutral = Canvas** — backgrounds, surfaces, the paper
+- **Primary = Ink** — text, icons, key UI elements, the pen
+- **Tertiary = Highlighter** — CTAs, badges, alerts, the loudest accents
+This mental model helps when the 60-30-10 ratio feels too prescriptive. Ask: what's the paper, what's the pen, what's the highlighter?

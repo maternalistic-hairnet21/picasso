@@ -54,6 +54,7 @@ Any 3 or more of these together = AI slop. Stop and redesign.
 - **Rainbow-coded elements** (each item in a set gets a different color)
 - **Colored icon badges** (icons inside tinted rounded containers)
 - **hover:-translate-y + shadow-lg** on every interactive card
+- Cards nested inside cards inside cards — creates visual noise and flattened hierarchy. If everything is a card, nothing is elevated.
 
 **The test:** Show someone a screenshot without context. If they say "AI-generated" in 3 seconds, it fails. The fingerprint is not any single choice -- it is the combination of defaults that signals zero human judgment.
 

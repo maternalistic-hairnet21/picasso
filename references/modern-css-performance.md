@@ -147,3 +147,20 @@ For complex scroll-linked animations with `scrub`, `pin`, and timeline control.
 | Popover API | 114+ | 125+ | 17+ |
 | @property | 85+ | 128+ | 15.4+ |
 | color-mix() | 111+ | 113+ | 16.2+ |
+
+---
+
+## Grainy Gradients (Eliminate Gradient Banding)
+SVG displacement map approach — displaces pixels instead of overlaying noise:
+```html
+<svg width='0' height='0' aria-hidden='true' style='position:fixed'>
+  <filter id='grain' color-interpolation-filters='sRGB' x='0' y='0' width='1' height='1'>
+    <feTurbulence type='fractalNoise' baseFrequency='.9713' numOctaves='4'/>
+    <feDisplacementMap in='SourceGraphic' xChannelSelector='R' scale='150'/>
+    <feBlend in2='SourceGraphic'/>
+  </filter>
+</svg>
+```
+Apply: `filter: url(#grain);` with `clip-path: inset(0)` to prevent filter bleed.
+Critical: `color-interpolation-filters='sRGB'` is mandatory. Set filter region `x='0' y='0' width='1' height='1'`. OKLCH does NOT reduce banding — only noise/displacement fixes it.
+For elements with text: apply grain to a `::before` pseudo-element with `z-index: -1` so text stays crisp.
