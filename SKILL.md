@@ -157,6 +157,7 @@ This step is non-negotiable. It takes 30 seconds and prevents hours of rework.
    - Accent color: [exact value in OKLCH — not Tailwind default indigo]
    - What makes this unforgettable: [one specific, memorable design choice]
    - What you're explicitly rejecting: [the obvious/generic approach for this type of product]
+   - Border-radius strategy: [at least 3 distinct values — buttons, cards, modals, tags — never one radius for everything]
 3. **Run the 3-Second Test** — picture the finished design. Would a designer say "AI-generated" in 3 seconds? If yes, change your commitments.
 4. **Check for slop combinations** — if 3+ of these are true, STOP and redesign:
    - Centered vertical layout
@@ -176,11 +177,16 @@ Before writing a single line of code, answer these questions internally:
 
 **Purpose.** What problem does this interface solve? Who uses it? What is the single most important action?
 
-**Tone.** Commit to a specific aesthetic direction. Not "clean and modern" (that is meaningless). Pick something with teeth: brutalist, editorial, retro-terminal, luxury serif, toy-like, industrial, organic, Swiss grid, art deco, vaporwave, newspaper broadsheet, scientific journal, or something entirely original. The direction should be informed by the content, not applied generically.
+**Tone.** Commit to a specific aesthetic direction. Not "clean and modern" (that is meaningless). Pick something with teeth: brutalist, editorial, retro-terminal, luxury serif, toy-like, industrial, organic, Swiss grid, art deco, vaporwave, newspaper broadsheet, scientific journal, or something entirely original. The direction should be informed by the content, not applied generically. Use tangible descriptions, not abstract ones. Say 'Japanese tea house' not 'minimalist'. Say 'high-end stationery' not 'premium'. The more specific the reference, the better the output.
 
 **Differentiation.** What makes this unforgettable? What is the one thing someone will remember after closing the tab? If there is no answer, the design is not ready.
 
 **Constraints.** Framework requirements, accessibility targets, performance budgets, existing design tokens.
+
+**Creative Direction.** Step into the role of Creative Director, not just coder. Three strategies from Google Stitch:
+- Start with Intent: Define exactly who the design is for and how you want them to feel
+- Enhance your language: Swap abstract words for tangible aesthetic descriptions ("high-end stationery" not "sporty", "architectural limestone" not "premium")
+- Master Color Hierarchy: Treat colors as visual weight—Neutral for canvas, Primary for ink, Tertiary for loudest accents
 
 ---
 

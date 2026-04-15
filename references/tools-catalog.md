@@ -55,6 +55,7 @@ const { trigger } = useWebHaptics();
 500x faster text measurement than DOM. Pure TypeScript, ~15KB.
 Two-function API: `prepare()` (one-time) + `layout()` (hot path, pure arithmetic).
 Universal: DOM, Canvas, SVG, WebGL, server-side. CJK, Arabic, Hebrew, Thai support.
+Demos: masonry virtualization (chenglou.me/pretext/masonr), chat bubbles (chenglou.me/pretext/bubble), responsive magazine (chenglou.me/pretext/dynami), variable font ASCII art (chenglou.me/pretext/variab)
 
 ## Design References
 
@@ -78,8 +79,8 @@ AI design tool: text prompts -> high-fidelity UI designs with production code.
 Features: AI canvas, voice interaction, DESIGN.md export, instant prototyping.
 MCP server + SDK for coding agent integration. 350 free generations/month.
 
-### Subframe (subframe.com)
-Drag-and-drop visual editor connected to coding agents via MCP.
+### Subframe / Design Canvas (subframe.com)
+Drag-and-drop visual editor for AI coding agents (Claude Code, Cursor, Codex). Iterate on UI design visually instead of via text prompts — eliminates the 'every design tweak = another prompt' problem. By Irvin Zhan.
 AI generates -> you visually refine -> clean code flows back.
 
 ### Variant (variant.com)
